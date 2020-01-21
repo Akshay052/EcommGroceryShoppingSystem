@@ -1,9 +1,10 @@
 package com.app.pojos;
 
-import java.util.ArrayList;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,8 +15,6 @@ import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Customer {
@@ -33,11 +32,24 @@ public class Customer {
 
 	private String phoneNumber;
 
+	private String billingAddress;
+
+	private String shippingAddress;
+
 	// mapping
 
-	private List<Address> addresses = new ArrayList<Address>();
-
 	private Cart cart;
+
+	private List<Orders> orders;
+
+	public Customer() {
+		super();
+		Date date = new Date();
+		String strDateFormat = "hh:mm:ss a";
+		DateFormat dateFormat = new SimpleDateFormat(strDateFormat);
+		String formattedDate = dateFormat.format(date);
+		System.out.println("Current time of the day using Date - 12 hour format: " + formattedDate);
+	}
 
 	@Id
 	@Column(name = "customer_id")
@@ -90,15 +102,20 @@ public class Customer {
 		this.phoneNumber = phoneNumber;
 	}
 
-	@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
-	@JsonIgnore
-	@LazyCollection(LazyCollectionOption.FALSE)
-	public List<Address> getAddresses() {
-		return addresses;
+	public String getBillingAddress() {
+		return billingAddress;
 	}
 
-	public void setAddresses(List<Address> addresses) {
-		this.addresses = addresses;
+	public void setBillingAddress(String billingAddress) {
+		this.billingAddress = billingAddress;
+	}
+
+	public String getShippingAddress() {
+		return shippingAddress;
+	}
+
+	public void setShippingAddress(String shippingAddress) {
+		this.shippingAddress = shippingAddress;
 	}
 
 	@OneToOne(mappedBy = "customer")
@@ -110,12 +127,20 @@ public class Customer {
 		this.cart = cart;
 	}
 
+	@OneToMany(mappedBy = "customer")
+	@LazyCollection(LazyCollectionOption.FALSE)
+	public List<Orders> getOrders() {
+		return orders;
+	}
+
+	public void setOrders(List<Orders> orders) {
+		this.orders = orders;
+	}
+
 	@Override
 	public String toString() {
 		return "Customer [customerId=" + customerId + ", firstName=" + firstName + ", lastName=" + lastName + ", email="
 				+ email + ", password=" + password + ", phoneNumber=" + phoneNumber + "]";
 	}
-	
-	
 
 }

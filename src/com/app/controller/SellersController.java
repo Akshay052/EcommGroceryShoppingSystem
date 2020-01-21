@@ -27,7 +27,7 @@ public class SellersController {
 
 	@Autowired
 	ISellerService sellerService;
-	
+
 	@Autowired
 	ICategoryService categoryService;
 
@@ -37,19 +37,19 @@ public class SellersController {
 
 	@GetMapping("/login")
 	public ModelAndView showLoginForm() {
-		ModelAndView mv=new ModelAndView("/home/index");
+		ModelAndView mv = new ModelAndView("/home/index");
 		System.out.println("in show login form");
-		//return "/customer/login";
-		mv.addObject("sellerLogin",true);
+		// return "/customer/login";
+		mv.addObject("sellerLogin", true);
 		return mv;
 	}
-	
+
 	// request handling method to process login form
 	@PostMapping("/login") // @RequestMapping + method=post
 	public ModelAndView processLoginForm(@RequestParam String email, @RequestParam String password, Model map,
 			RedirectAttributes flashMap, HttpSession hs) {
 		System.out.println("in process login form");
-		ModelAndView mv=new ModelAndView("/home/index");
+		ModelAndView mv = new ModelAndView("/home/index");
 
 		// invoke dao's method for auth.
 		try {
@@ -60,7 +60,7 @@ public class SellersController {
 			hs.setAttribute("seller_details", seller);// till logout
 			System.out.println("seller info" + seller);
 			flashMap.addFlashAttribute("mesg", "Login Successful");// till next request
-			mv.addObject("sellertask",true);
+			mv.addObject("sellertask", true);
 			return mv;
 
 		} catch (RuntimeException e) {
@@ -68,7 +68,7 @@ public class SellersController {
 			System.out.println("err in seller controller " + e);
 			map.addAttribute("mesg", "Invalid email or password");
 			// invalid login
-			mv.addObject("errorinseller",true);
+			mv.addObject("errorinseller", true);
 
 			return mv;
 
@@ -79,15 +79,15 @@ public class SellersController {
 	@GetMapping("/list")
 	public ModelAndView getAllSeller(Model map) {
 		System.out.println("inside getAllSeller");
-		ModelAndView mv=new ModelAndView("/home/index");
+		ModelAndView mv = new ModelAndView("/home/index");
 
 		List<Seller> list = sellerService.getSellerList();
 		if (list.size() != 0) {
 			map.addAttribute("seller_list", list);
-			mv.addObject("sellerList",true);
+			mv.addObject("sellerList", true);
 
 			return mv;
-			
+
 		} else {
 			map.addAttribute("mesg", "List Not Found");
 			return mv;
@@ -97,92 +97,89 @@ public class SellersController {
 
 	@GetMapping("/register")
 	public ModelAndView showRegForm(Model map) {
-		ModelAndView mv=new ModelAndView("/home/index");
+		ModelAndView mv = new ModelAndView("/home/index");
 		System.out.println("inside showRegForm method ");
 		map.addAttribute("seller", new Seller());
-		mv.addObject("sellerRegister",true);
+		mv.addObject("sellerRegister", true);
 		return mv;
 	}
-	
-		
-		
 
 	@PostMapping("/register")
 	public ModelAndView processRegForm(@Valid Seller seller, BindingResult result, RedirectAttributes flashMap) {
-		ModelAndView mv=new ModelAndView("/home/index");
+		ModelAndView mv = new ModelAndView("/home/index");
 
 		System.out.println("inside processRegForm method");
 
 		if (result.hasErrors()) {
 			System.out.println("P.L errs " + result);
 			// in case of P.L errors --forward clnt to reg form
-			mv.addObject("errorinseller",true);
+			mv.addObject("errorinseller", true);
 			return mv;
 		}
 		seller.setStatus("not verified");
 		flashMap.addFlashAttribute("mesg", sellerService.addSeller(seller));
-		mv.addObject("sellertask",true);
+		mv.addObject("sellertask", true);
 		return mv;
 	}
-	
 
 	@GetMapping("/update")
-	public ModelAndView showUpdateForm(@RequestParam int sellerId,Model map) {
-		ModelAndView mv=new ModelAndView("/home/index");
+	public ModelAndView showUpdateForm(@RequestParam int sellerId, Model map) {
+		ModelAndView mv = new ModelAndView("/home/index");
 		System.out.println("inside showUpdateForm method ");
 		map.addAttribute("s", sellerService.getSellerDetails(sellerId));
-		mv.addObject("sellerUpdate",true);
+		mv.addObject("sellerUpdate", true);
 		return mv;
 	}
-	
-	
+
 	@PostMapping("/update")
-	public ModelAndView updateSeller(@RequestParam int sellerId, @Valid Seller seller,BindingResult result, Model map) {
+	public ModelAndView updateSeller(@RequestParam int sellerId, @Valid Seller seller, BindingResult result,
+			Model map) {
 		System.out.println("in update Seller" + sellerId + " " + seller);
-		ModelAndView mv=new ModelAndView("/home/index");
+		ModelAndView mv = new ModelAndView("/home/index");
 
 		try {
 			if (sellerService.updateSeller(sellerId, seller)) {
 
 				map.addAttribute("mesg", "Seller updated successfully");
-				
+
 			}
 
 		} catch (Exception e) {
 			map.addAttribute("mesg", "Seller NOT Updated ");
-			
+
 		}
-		mv.addObject("sellerList",true);
+		mv.addObject("sellerList", true);
 
 		return mv;
 
 	}
-	
+
 	@GetMapping("/delete")
-	public ModelAndView deleteSeller(@RequestParam int sellerId,Model map) {
-		ModelAndView mv=new ModelAndView("/home/index");
+	public ModelAndView deleteSeller(@RequestParam int sellerId, Model map) {
+		ModelAndView mv = new ModelAndView("/home/index");
 
 		try {
-			if(sellerService.deleteSeller(sellerId)) {
+			if (sellerService.deleteSeller(sellerId)) {
 				map.addAttribute("mesg", "Seller deleted successfully");
 			}
-		}catch(Exception e) {
+		} catch (Exception e) {
 			map.addAttribute("mesg", "Seller not deleted");
 		}
-		mv.addObject("sellerList",true);
+		mv.addObject("sellerList", true);
 
 		return mv;
 	}
 
 	@GetMapping("/sellerCategoryList")
 	public ModelAndView showCategories(Model map) {
-		ModelAndView mv=new ModelAndView("/home/index");
+		ModelAndView mv = new ModelAndView("/home/index");
 		List<Category> list = categoryService.getCategoryList();
-        map.addAttribute("category_list", list);
+		map.addAttribute("category_list", list);
 		System.out.println("in show categories form");
-		mv.addObject("SellercategoryList",true);
+		mv.addObject("SellercategoryList", true);
 		return mv;
 	}
+
 	@GetMapping("/logout")
 	public String showLogout(HttpSession session) {
 		System.out.println("in logout page");
@@ -192,11 +189,10 @@ public class SellersController {
 
 	@GetMapping("/task")
 	public ModelAndView showtask() {
-		ModelAndView mv=new ModelAndView("/home/index");
+		ModelAndView mv = new ModelAndView("/home/index");
 		System.out.println("in show task");
-		mv.addObject("sellertask",true);
+		mv.addObject("sellertask", true);
 		return mv;
 	}
 
-	
 }

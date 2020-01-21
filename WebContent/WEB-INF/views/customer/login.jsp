@@ -6,9 +6,8 @@
 		<div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
 			<div class="card card-signin my-5">
 				<div class="card-body">
-					<h5 class="card-title text-center">Sign In
-						</h5>
-						<h3>${requestScope.mesg}</h3>
+					<h5 class="card-title text-center">Sign In</h5>
+					<h3>${requestScope.mesg}</h3>
 					<form class="form-signin" method="post">
 						<div class="form-label-group">
 							<label for="email">Email </label> <input type="email" id="email"
@@ -33,8 +32,7 @@
 							Don't have account? <a
 								href="<spring:url value='/customer/register'/>">Sign up</a>
 						</p>
-						<br>
-						<br>
+						<br> <br>
 					</form>
 				</div>
 			</div>

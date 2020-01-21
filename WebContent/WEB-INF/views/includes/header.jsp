@@ -8,6 +8,7 @@
 <spring:url var="images" value="/resources/images" />
 <spring:url var="js" value="/resources/js" />
 <spring:url var="fonts" value="/resources/fonts" />
+<spring:url var="products" value="/resources/images/products" />
 
 <c:set var="SITE_URL" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
@@ -26,8 +27,7 @@
 <meta name="author" content="">
 
 <!-- Site Icons -->
-<link rel="shortcut icon" href="${images}/logo.jpeg"
-	type="image/x-icon">
+<link rel="shortcut icon" href="${images}/logo.jpeg" type="image/x-icon">
 
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="${css}/bootstrap.min.css">
@@ -38,20 +38,22 @@
 <!-- jQuery -->
 <script src="${js}/jquery.min.js" type="text/javascript"></script>
 
-<link href="${css}/bootstrap.css" rel="stylesheet" type="text/css"/>
+<link href="${css}/bootstrap.css" rel="stylesheet" type="text/css" />
 
 <!-- Font awesome 5 -->
-<link href="${fonts}/fontawesome/css/all.min.css" type="text/css" rel="stylesheet">
+<link href="${fonts}/fontawesome/css/all.min.css" type="text/css"
+	rel="stylesheet">
 
 <!-- custom style -->
-<link href="${css}/ui.css" rel="stylesheet" type="text/css"/>
-<link href="${css}/responsive.css" rel="stylesheet" media="only screen and (max-width: 1200px)" />
+<link href="${css}/ui.css" rel="stylesheet" type="text/css" />
+<link href="${css}/responsive.css" rel="stylesheet"
+	media="only screen and (max-width: 1200px)" />
 
 <!-- custom javascript -->
 <script src="js/script.js" type="text/javascript"></script>
 
 <!-- cart files -->
-<link href="${css}/cart.css" rel="stylesheet" type="text/css"/>
+<link href="${css}/cart.css" rel="stylesheet" type="text/css" />
 <script src="${js}/cart.js" type="text/javascript"></script>
 
 </head>

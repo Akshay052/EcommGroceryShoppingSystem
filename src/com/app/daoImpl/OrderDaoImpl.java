@@ -3,11 +3,16 @@ import java.util.List;
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.app.dao.IOrdersDao;
 import com.app.pojos.Orders;
 
+@Repository
+@Transactional
 public class OrderDaoImpl implements IOrdersDao {
+	
 	@Autowired
 	SessionFactory sf;
 	
@@ -55,6 +60,20 @@ public class OrderDaoImpl implements IOrdersDao {
 			throw e;
 		}
 		return orders;
+	}
+
+	@Override
+	public boolean addOrder(Orders order) {
+		// TODO Auto-generated method stub
+		boolean status=false;
+		try {
+			sf.getCurrentSession().save(order);
+			status=true;
+		}
+		catch(Exception e) {
+			throw e;
+		}
+		return status;
 	}
 
 }

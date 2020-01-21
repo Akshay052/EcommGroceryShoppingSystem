@@ -1,9 +1,7 @@
 package com.app.pojos;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -40,7 +38,9 @@ public class Seller {
 
 	//Mapping
 	
-	private List<Product> products=new ArrayList<Product>();
+	private List<Product> products;
+	
+	private List<Orders> orders;
 	
 	//Constructors
 	
@@ -146,7 +146,7 @@ public class Seller {
 		this.address = address;
 	}
 
-	@OneToMany(mappedBy = "seller", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "seller")
 	@LazyCollection(LazyCollectionOption.FALSE)
 	public List<Product> getProducts() {
 		return products;
@@ -156,29 +156,15 @@ public class Seller {
 		this.products = products;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((sellerId == null) ? 0 : sellerId.hashCode());
-		return result;
+	@OneToMany(mappedBy = "seller")
+	@LazyCollection(LazyCollectionOption.FALSE)
+	public List<Orders> getOrders() {
+		return orders;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Seller other = (Seller) obj;
-		if (sellerId == null) {
-			if (other.sellerId != null)
-				return false;
-		} else if (!sellerId.equals(other.sellerId))
-			return false;
-		return true;
+
+	public void setOrders(List<Orders> orders) {
+		this.orders = orders;
 	}
 
 

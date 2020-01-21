@@ -11,60 +11,62 @@
 							<p class="lead">Please fill in your information below.</p>
 						</div>
 
-						<sf:form method="post" modelAttribute="customer" onsubmit="return validatepass()">
+						<sf:form method="post" modelAttribute="customer"
+							onsubmit="return validatepass()">
 							<h3>Basic Info</h3>
 							<div class="form-group">
 								<label for="firstname">First Name</label>
 								<sf:input class="form-control" id="firstname"
-									placehonder="First Name" path="firstName" />
-								<sf:errors path="firstName" required autofocus />
+									placehonder="First Name" path="firstName" required="true" />
+								<sf:errors path="firstName" />
 							</div>
 							<div class="form-group">
 								<label for="lastname">Last Name</label>
 								<sf:input class="form-control" id="lastname"
-									placehonder="Last Name" path="lastName" />
-								<sf:errors path="lastName" required autofocus/>
+									placehonder="Last Name" path="lastName" required="true" />
+								<sf:errors path="lastName" />
 							</div>
 							<div class="form-group">
 								<label for="email">Email</label>
-								<sf:input class="form-control" type="email" id="email" placehonder="Email"
-									path="email" required autofocus />
+								<sf:input class="form-control" type="email" id="email"
+									placehonder="Email" path="email" required="true" />
 								<sf:errors path="email" />
 							</div>
 							<div class="form-group">
 								<label for="password">Create Password</label>
 								<sf:input class="form-control" type="password" id="createpass"
-									placehonder="password" path="password" required autofocus />
+									placehonder="password" path="password" required="true" />
 								<sf:errors path="password" />
 							</div>
 							<div class="form-group">
 								<label for="password">Repeat Password</label>
 								<sf:input class="form-control" type="password" id="repeatpass"
-									placehonder="password" path="password" required autofocus />
+									placehonder="password" path="password" required="true" />
 								<sf:errors path="password" />
 							</div>
 							<div class="form-group">
 								<label for="phoneno">Phone Number</label>
 								<sf:input class="form-control" id="phoneno"
-									placehonder="Phone Number" path="phoneNumber" required autofocus />
+									placehonder="Phone Number" path="phoneNumber" required="true" />
 								<sf:errors path="phoneNumber" />
 							</div>
 							<div class="form-group">
 								<label for="accountno">Bank Account Number</label>
 								<sf:input class="form-control" id="accountno"
-									placehonder="Bank account number" path="accountNumber" required autofocus />
+									placehonder="Bank account number" path="accountNumber"
+									required="true" />
 								<sf:errors path="accountNumber" />
 							</div>
 							<div class="form-group">
 								<label for="ifsc">IFSC code</label>
 								<sf:input class="form-control" id="ifsc"
-									placehonder="IFSC number" path="IFSC" required autofocus />
+									placehonder="IFSC number" path="IFSC" required="true" />
 								<sf:errors path="IFSC" />
 							</div>
 							<div class="form-group">
 								<label for="address">Address</label>
 								<sf:input class="form-control" id="address"
-									placehonder="Address" path="address" required autofocus />
+									placehonder="Address" path="address" required="true" />
 								<sf:errors path="address" />
 							</div>
 
@@ -74,7 +76,7 @@
 
 						</sf:form>
 					</div>
-	
+
 				</div>
 			</div>
 		</div>

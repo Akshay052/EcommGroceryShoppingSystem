@@ -18,18 +18,20 @@
 			<tr>
 				<th style="width: 50%">Product</th>
 				<th style="width: 10%">Price</th>
+				<th></th>
 				<th style="width: 8%">Quantity</th>
+				<th></th>
 				<th style="width: 22%" class="text-center">Subtotal</th>
 				<th style="width: 10%"></th>
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach var="cartItem" items="${cart.cartItems}">
+			<c:forEach var="cartItem" items="${customer.cart.cartItems}">
 				<tr>
 					<td data-th="Product">
 						<div class="row">
 							<div class="col-sm-2 hidden-xs">
-								<img src="${images}/${cartItem.product.imageUrl} alt="
+								<img src="${products}/${cartItem.product.imageUrl} alt="
 									..." class="img-responsive" />
 							</div>
 							<div class="col-sm-10">
@@ -38,33 +40,41 @@
 						</div>
 					</td>
 					<td data-th="Price">${cartItem.product.price}</td>
+
+
+					<td class="actions" data-th=""><a
+						href="<spring:url value='/customer/cart/decreasequantity?cartItemId=${cartItem.cartItemId}' />"
+						class="btn btn-info btn-sm">-</a></td>
 					<td data-th="Quantity"><input type="number" id="quantity"
-						class="form-control text-center" value="${cartItem.quantity}">
+						class="form-control text-center" value="${cartItem.quantity}" disabled="disabled">
 					</td>
+					<td class="actions" data-th=""><a
+						href="<spring:url value='/customer/cart/increasequantity?cartItemId=${cartItem.cartItemId}' />"
+						class="btn btn-info btn-sm">+</a></td>
+
+
+
+
 					<td data-th="Subtotal" class="text-center">${cartItem.value}</td>
 					<td class="actions" data-th=""><a
-						href="<spring:url value='/customer/cart/updatecartitem?cartItemId=${cartItem.cartItemId}&quantity=2' />"
-						class="btn btn-info btn-sm"><i class="fa fa-refresh"></i>Refresh</a>
-						<a href="<spring:url value='/customer/cart/removecartitem?cartItemId=${cartItem.cartItemId}' />"
-						class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>Remove</a>
+						href="<spring:url value='/customer/cart/removecartitem?cartItemId=${cartItem.cartItemId}' />"
+						class="btn btn-danger btn-sm">Remove</a>
 					</td>
 				</tr>
 			</c:forEach>
 		</tbody>
 		<tfoot>
 			<tr class="visible-xs">
-				<td class="text-center"><strong>Total 1.99</strong></td>
+				
 			</tr>
 			<tr>
 				<td><a href="<spring:url value='/customer/categories' />"
-					class="btn btn-warning"><i class="fa fa-angle-left"></i>
+					class="btn btn-warning">
 						Continue Shopping</a></td>
 				<td colspan="2" class="hidden-xs"></td>
-				<td class="hidden-xs text-center"><strong>Total:
-						${requestScope.cart.amount}</strong></td>
+				<td class="hidden-xs text-center"><strong>Total:${customer.cart.amount}</strong></td>
 				<td><a href="<spring:url value='/customer/cart/checkout' />"
-					class="btn btn-success btn-block">Checkout <i
-						class="fa fa-angle-right"></i></a></td>
+					class="btn btn-success btn-block">Checkout </a></td>
 			</tr>
 		</tfoot>
 	</table>

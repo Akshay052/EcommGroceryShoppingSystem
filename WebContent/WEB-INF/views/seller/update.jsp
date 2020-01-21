@@ -47,12 +47,13 @@
 							</tr>
 							<tr>
 								<td>Enter Address:</td>
-								<td><sf:input path="address" value="${s.address}"  /></td>
+								<td><sf:input path="address" value="${s.address}" /></td>
 								<td><sf:errors path="address" /></td>
 							</tr>
-<tr>
+							<tr>
 								<td>Status:</td>
-								<td><sf:input path="status" value="${s.status}" readonly="true" /></td>
+								<td><sf:input path="status" value="${s.status}"
+										readonly="true" /></td>
 								<td><sf:errors path="status" /></td>
 							</tr>
 

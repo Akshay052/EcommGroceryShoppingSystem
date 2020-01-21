@@ -28,7 +28,7 @@ import com.app.service.IProductService;
 @Controller
 @RequestMapping("/product")
 public class ProductsController {
-	
+
 	@Value("${upload_image_path}")
 	private String imagePath;
 
@@ -103,7 +103,7 @@ public class ProductsController {
 		}
 		return "redirect:selectimage";
 	}
-	
+
 	@GetMapping("/selectimage")
 	public ModelAndView uploadImage(Model map) {
 		ModelAndView mv = new ModelAndView("/home/index");
@@ -114,29 +114,32 @@ public class ProductsController {
 
 	@PostMapping("/uploadimage")
 	public String addImage(@RequestParam MultipartFile file, HttpSession session) {
-		
+
 		String uploadLocation = imagePath;
+		//C:\Users\tnpat\Documents\ProRev\EcommerceMVC\WebContent\resources\images\products
+		System.out.println("uploadLocation:" + uploadLocation);
 		if (file.isEmpty()) {
-			System.out.println("Please select a file is empty");
+			System.out.println("file is empty");
 		}
 
 		try {
+			
 			Product product = (Product) session.getAttribute("product");
 			// Get the file and save it somewhere
-			
-			File dest=new File(uploadLocation , file.getOriginalFilename());
-			//file transferred to server side folder 
+
+			File dest = new File(uploadLocation, file.getOriginalFilename());
+			// file transferred to server side folder
 			file.transferTo(dest);
-			
-			System.out.println("upload location :"+uploadLocation +"//"+file.getOriginalFilename());
+
+			System.out.println("upload location :" + uploadLocation + "//" + file.getOriginalFilename());
 
 			System.out.println("You successfully uploaded " + file.getOriginalFilename());
-			//set product url
-			product.setImageUrl(uploadLocation);
-			//persist product to db
+			// set product url
+			product.setImageUrl(file.getOriginalFilename());
+			// persist product to db
 			String categoryName = (String) session.getAttribute("categoryName");
 			Seller seller = (Seller) session.getAttribute("seller_details");
-			System.out.println("Product adding status:" + productService.addProduct(product,categoryName,seller));
+			System.out.println("Product adding status:" + productService.addProduct(product, categoryName, seller));
 
 		} catch (IOException e) {
 			e.printStackTrace();

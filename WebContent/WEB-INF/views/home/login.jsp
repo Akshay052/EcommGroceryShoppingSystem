@@ -13,13 +13,13 @@
 							Seller</a>
 					</button>
 
-					
+
 
 					<button class="btn btn-lg btn-block text-uppercase">
 						<a href="<spring:url value='/customer/login'/>">Sign in as
 							Customer</a>
 					</button>
-					
+
 				</div>
 			</div>
 		</div>

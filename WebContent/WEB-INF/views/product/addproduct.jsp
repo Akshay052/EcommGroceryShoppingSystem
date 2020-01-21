@@ -6,9 +6,9 @@
 			<div class="card card-signin my-5">
 				<div class="card-body">
 					<sf:form method="post" modelAttribute="product">
-							<h1>Add Product</h1>
-                        
-							<table style="margin: auto;">
+						<h1>Add Product</h1>
+
+						<table style="margin: auto;">
 							<tr>
 								<td>Select Category:</td>
 								<td><select name="category">
@@ -46,7 +46,7 @@
 							</tr>
 
 							<tr>
-							<td></td>
+								<td></td>
 								<td><input type="submit" value="Add" /></td>
 							</tr>
 						</table>

@@ -12,7 +12,9 @@
 								<td><input type="file" name="file" value="Select image" /></td>
 								<td></td>
 							</tr>
-							<tr><td><br></td></tr>
+							<tr>
+								<td><br></td>
+							</tr>
 							<tr>
 								<td></td>
 								<td><input type="submit" value="Upload image" /></td>

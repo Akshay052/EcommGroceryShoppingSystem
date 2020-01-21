@@ -1,5 +1,8 @@
 package com.app.controller;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -33,6 +36,11 @@ public class CustomersController {
 
 	public CustomersController() {
 		System.out.println("in Customer controller ctor");
+		Date date = new Date();
+        String strDateFormat = "hh:mm:ss a";
+        DateFormat dateFormat = new SimpleDateFormat(strDateFormat);
+        String formattedDate= dateFormat.format(date);
+        System.out.println("Current time of the day using Date - 12 hour format: " + formattedDate);
 	}
 
 	@GetMapping("/login")
@@ -52,8 +60,7 @@ public class CustomersController {
 		// invoke dao's method for auth.
 		try {
 
-			Customer customer = new Customer();
-			customer = customerService.authenticateCustomer(email, password);
+			Customer customer =  customerService.authenticateCustomer(email, password);
 
 			// valid login
 			session.setAttribute("customer_details", customer);	// till logout
@@ -81,7 +88,7 @@ public class CustomersController {
 		List<Category> list = categoryService.getCategoryList();
 		mv.addObject("showCategories",true);
         session.setAttribute("category_list", list);
-		//return "/customer/login";
+		
 		return mv;
 	}
 	
@@ -113,13 +120,15 @@ public class CustomersController {
 	public ModelAndView showRegForm(Model map) {
 		ModelAndView mv=new ModelAndView("/home/index");
 		System.out.println("inside showRegForm method ");
-		map.addAttribute("Customer", new Customer());
+		
+		map.addAttribute("customer", new Customer());
+		
 		mv.addObject("customerRegister",true);
 		return mv;
 	}
 
 	@PostMapping("/register")
-	public ModelAndView processRegForm(@Valid Customer c, BindingResult result, RedirectAttributes flashMap) {
+	public ModelAndView processRegForm(@Valid Customer customer, BindingResult result, RedirectAttributes flashMap) {
 		ModelAndView mv=new ModelAndView("/home/index");
 
 		System.out.println("inside processRegForm method");
@@ -131,7 +140,7 @@ public class CustomersController {
 			return mv;
 		}
 
-		flashMap.addFlashAttribute("mesg", customerService.addCustomer(c));
+		flashMap.addFlashAttribute("mesg", customerService.addCustomer(customer));
 		mv.addObject("customerLogin",true);
 		return mv;
 	}

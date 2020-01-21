@@ -148,9 +148,6 @@
 			<%@include file="about.jsp"%>
 		</c:if>
 
-		<c:if test="${showCategories == true}">
-			<%@include file="../customer/categories.jsp"%>
-		</c:if>
 
 		<!--=========================== seller pages============== -->
 
@@ -177,7 +174,7 @@
 		<c:if test="${addProduct == true}">
 			<%@include file="../product/addproduct.jsp"%>
 		</c:if>
-		
+
 		<c:if test="${uploadImage == true}">
 			<%@include file="../product/uploadimage.jsp"%>
 		</c:if>
@@ -198,31 +195,35 @@
 		<c:if test="${customerLogin == true}">
 			<%@include file="../customer/login.jsp"%>
 		</c:if>
-		
+
 		<c:if test="${customerRegister == true}">
 			<%@include file="../customer/register.jsp"%>
 		</c:if>
 
-		<c:if test="${productList == true}">
-			<%@include file="../customer/products.jsp"%>
+		<c:if test="${showCategories == true}">
+			<%@include file="../customer/categories.jsp"%>
 		</c:if>
 		
+		<c:if test="${productList == true}">
+			<%@include file="../customer/categories.jsp"%>
+		</c:if>
+
 		<c:if test="${productDetails == true}">
 			<%@include file="../product/details.jsp"%>
 		</c:if>
-
+		
 		<c:if test="${customerAccount == true}">
 			<%@include file="../customer/account.jsp"%>
 		</c:if>
-		
+
 		<c:if test="${customertask == true}">
 			<%@include file="../customer/task.jsp"%>
 		</c:if>
-		
+
 		<c:if test="${customerUpdate == true}">
 			<%@include file="../customer/update.jsp"%>
 		</c:if>
-		
+
 		<c:if test="${customerLogout == true}">
 			<%@include file="../customer/logout.jsp"%>
 		</c:if>
@@ -241,6 +242,12 @@
 
 		<c:if test="${showCart == true}">
 			<%@include file="../customer/cart.jsp"%>
+		</c:if>
+
+		<!-- ========== Payment and order ========== -->
+
+		<c:if test="${showPaymentPage == true}">
+			<%@include file="../orders/payment.jsp"%>
 		</c:if>
 
 

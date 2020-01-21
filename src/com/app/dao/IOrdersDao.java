@@ -3,7 +3,6 @@ package com.app.dao;
 import java.util.List;
 
 import com.app.pojos.Orders;
-import com.app.pojos.Product;
 
 public interface IOrdersDao {
 	
@@ -15,5 +14,6 @@ public interface IOrdersDao {
 
 	public List<Orders> getAllPendingOrders();
 
-	
+	public boolean addOrder(Orders order);
+
 }

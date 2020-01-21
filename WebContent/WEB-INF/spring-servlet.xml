@@ -11,14 +11,18 @@
 	<context:annotation-config />
 	<context:component-scan base-package="com.app" />
 
-	<context:property-placeholder location="classpath:/app.properties"/>
-	
+	<context:property-placeholder
+		location="classpath:/app.properties" />
+
 	<!-- to enable annotation based MVC support -->
 	<mvc:annotation-driven />
-	
+
 	<!-- Loading static resources -->
 	<mvc:resources location="/resources/"
 		mapping="/resources/**"></mvc:resources>
+	<!-- To Store product images -->
+	<mvc:resources location="/resources/images/products/"
+		mapping="/resources/images/products/**"></mvc:resources>
 
 	<!-- Configure view resolver -->
 	<bean id="viewResolver"
@@ -30,6 +34,6 @@
 	<import resource="classpath:/hibernate-persistence.xml" />
 
 	<!-- Configure multipart -->
-	<import resource="classpath:/file-upload.xml"/>
-	
+	<import resource="classpath:/file-upload.xml" />
+
 </beans>

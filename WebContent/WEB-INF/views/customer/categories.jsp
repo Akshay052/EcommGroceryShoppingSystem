@@ -46,13 +46,14 @@
 
 			</aside>
 			<!-- col.// -->
-			<main class="col-md-9"> 
+			<main class="col-md-9">
+
 			<div class="row">
 				<c:forEach var="p" items="${requestScope.product_list}">
 					<div class="col-md-4">
 						<figure class="card card-product-grid">
 							<div class="img-wrap">
-								<img src="/upload_images/${p.imageUrl}">
+								<img src="${images}/products/${p.imageUrl}">
 							</div>
 							<!-- img-wrap.// -->
 							<figcaption class="info-wrap">
@@ -60,12 +61,13 @@
 									<a href="#" class="title">${p.productName}</a>
 									<div class="price-wrap mt-2">
 										<span class="price">${p.price}</span>
-										<!-- <del class="weight">${p.weight}</del> -->
+										<del class="weight">${p.weight}</del>
 									</div>
 									<!-- price-wrap.// -->
 								</div>
-									<a href="<spring:url value='/product/details?productId=${p.id}'/>"
-										class="btn btn-block btn-primary">Details </a>
+								<a
+									href="<spring:url value='/product/details?productId=${p.id}'/>"
+									class="btn btn-block btn-primary">Details </a>
 							</figcaption>
 						</figure>
 					</div>
@@ -73,10 +75,7 @@
 				<!-- col.// -->
 
 			</div>
-			<!-- row end.// -->
-
-
-			</main>
+			<!-- row end.// --> </main>
 			<!-- col.// -->
 
 		</div>

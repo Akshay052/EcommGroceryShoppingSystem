@@ -80,10 +80,10 @@ public class CustomerService implements ICustomerService {
 
 				// add cart for customer
 				cart.setCustomer(customer);
-
 				// persist cart
 				cartDao.addCart(cart);
-				
+				//fetch updated customer
+				customer =customerDao.getCustomerDetails(customer.getCustomerId());
 			}
 		}
 		catch(Exception e) {

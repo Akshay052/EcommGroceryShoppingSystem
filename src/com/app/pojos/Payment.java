@@ -8,6 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 public class Payment {
@@ -15,8 +17,8 @@ public class Payment {
 	private Integer paymentId;
 	private double totalAmount;
 	private Date date;
-	
-	//mapping
+
+	// mapping
 	private Cart cart;
 
 	@Id
@@ -37,6 +39,7 @@ public class Payment {
 		this.totalAmount = totalAmount;
 	}
 
+	@Temporal(TemporalType.DATE)
 	public Date getDate() {
 		return date;
 	}
@@ -46,7 +49,7 @@ public class Payment {
 	}
 
 	@OneToOne
-	@JoinColumn(name="cart_id")
+	@JoinColumn(name = "cart_id")
 	public Cart getCart() {
 		return cart;
 	}
@@ -54,7 +57,5 @@ public class Payment {
 	public void setCart(Cart cart) {
 		this.cart = cart;
 	}
-	
-	
-	
+
 }
