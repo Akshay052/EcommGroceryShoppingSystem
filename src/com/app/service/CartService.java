@@ -84,11 +84,17 @@ public class CartService implements ICartService {
 			CartItem cartItem = cartDao.getCartItemDetails(cartItemId);
 			int quantity = cartItem.getQuantity() + (update);
 			double amount = 0;
+			if(update==1) {
+				amount += cartItem.getProduct().getPrice();
+			}
+			else if(update==-1) {
+				amount -= cartItem.getProduct().getPrice();
+			}
+			
 			if (quantity != 0) {
 				
 				cartItem.setQuantity(quantity);
 				cartItem.setValue(cartItem.getProduct().getPrice() * quantity);
-		
 				cartDao.updateCartItem(cartItem);
 				for(CartItem ct: cart.getCartItems()) {
 					amount += ct.getValue();
@@ -101,6 +107,10 @@ public class CartService implements ICartService {
 			else {
 				cart.getCartItems().remove(cartItem);
 				cartDao.deleteCartItem(cartItemId);
+				for(CartItem ct: cart.getCartItems()) {
+					amount += ct.getValue();
+				}
+				cart.setAmount(amount);
 				cartDao.updateCart(cart);
 				status = true;
 				

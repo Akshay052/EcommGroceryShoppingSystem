@@ -1,4 +1,4 @@
-<script src="${js}/validatepassword.js" type="text/javascript"></script>
+<script src="${js}/validations.js" type="text/javascript"></script>
 
 <div class="container">
 	<div class="row">

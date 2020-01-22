@@ -1,4 +1,4 @@
-<script src="${js}/validatepassword.js" type="text/javascript"></script>
+<script src="${js}/validations.js" type="text/javascript"></script>
 
 <div class="container">
 	<div class="row">
@@ -41,7 +41,7 @@
 							<div class="form-group">
 								<label for="password">Repeat Password</label>
 								<sf:input class="form-control" type="password" id="repeatpass"
-									placehonder="password" path="password" required="true" />
+									placehonder="password" path="password" required="true" /><p id="msg"></p>
 								<sf:errors path="password" />
 							</div>
 							<div class="form-group">
@@ -50,24 +50,19 @@
 									placehonder="Phone Number" path="phoneNumber" required="true" />
 								<sf:errors path="phoneNumber" />
 							</div>
+							
+							
 							<div class="form-group">
-								<label for="accountno">Bank Account Number</label>
-								<sf:input class="form-control" id="accountno"
-									placehonder="Bank account number" path="accountNumber"
-									required="true" />
-								<sf:errors path="accountNumber" />
+								<label for="address">Billing Address</label>
+								<sf:textarea class="form-control" type="textarea" id="billingAddress"
+									placehonder="Billing Address" path="billingAddress" required="true" />
+								<sf:errors path="billingAddress" />
 							</div>
 							<div class="form-group">
-								<label for="ifsc">IFSC code</label>
-								<sf:input class="form-control" id="ifsc"
-									placehonder="IFSC number" path="IFSC" required="true" />
-								<sf:errors path="IFSC" />
-							</div>
-							<div class="form-group">
-								<label for="address">Address</label>
-								<sf:input class="form-control" id="address"
-									placehonder="Address" path="address" required="true" />
-								<sf:errors path="address" />
+								<label for="address">Shipping Address</label>
+								<sf:textarea class="form-control" type="textarea" id="shippingAddress"
+									placehonder="Billing Address" path="shippingAddress" required="true" />
+								<sf:errors path="shippingAddress" />
 							</div>
 
 							<!-- <td><input type="submit" value="Register New Seller" /></td> -->

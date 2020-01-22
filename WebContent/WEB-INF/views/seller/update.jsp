@@ -1,74 +1,82 @@
+<script src="${js}/validations.js" type="text/javascript"></script>
+
 <div class="container">
 	<div class="row">
 		<div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
 			<div class="card card-signin my-5">
 				<div class="card-body">
-					<sf:form method="post" modelAttribute="s">
+					<div class=container>
+						<div class="page-header">
+							<h1>Update</h1>
+						</div>
 
-						<table style="background-color: cyan; margin: auto;">
+						<sf:form method="post" modelAttribute="seller"
+							onsubmit="return validatepass()">
+							<h3>Basic Info</h3>
+							<div class="form-group">
+								<label for="firstname">First Name</label>
+								<sf:input class="form-control" id="firstname"
+									placehonder="First Name" path="firstName" required="true" />
+								<sf:errors path="firstName" />
+							</div>
+							<div class="form-group">
+								<label for="lastname">Last Name</label>
+								<sf:input class="form-control" id="lastname"
+									placehonder="Last Name" path="lastName" required="true" />
+								<sf:errors path="lastName" />
+							</div>
+							<div class="form-group">
+								<label for="email">Email</label>
+								<sf:input class="form-control" type="email" id="email"
+									placehonder="Email" path="email" required="true" />
+								<sf:errors path="email" />
+							</div>
+							<div class="form-group">
+								<label for="password">Create Password</label>
+								<sf:input class="form-control" type="password" id="createpass"
+									placehonder="password" path="password" required="true" />
+								<sf:errors path="password" />
+							</div>
+							<div class="form-group">
+								<label for="password">Repeat Password</label>
+								<sf:input class="form-control" type="password" id="repeatpass"
+									placehonder="password" path="password" required="true" />
+								<sf:errors path="password" />
+							</div>
+							<div class="form-group">
+								<label for="phoneno">Phone Number</label>
+								<sf:input class="form-control" id="phoneno"
+									placehonder="Phone Number" path="phoneNumber" required="true" />
+								<sf:errors path="phoneNumber" />
+							</div>
+							<div class="form-group">
+								<label for="accountno">Bank Account Number</label>
+								<sf:input class="form-control" id="accountno"
+									placehonder="Bank account number" path="accountNumber"
+									required="true" />
+								<sf:errors path="accountNumber" />
+							</div>
+							<div class="form-group">
+								<label for="ifsc">IFSC code</label>
+								<sf:input class="form-control" id="ifsc"
+									placehonder="IFSC number" path="IFSC" required="true" />
+								<sf:errors path="IFSC" />
+							</div>
+							<div class="form-group">
+								<label for="address">Address</label>
+								<sf:input class="form-control" id="address"
+									placehonder="Address" path="address" required="true" />
+								<sf:errors path="address" />
+							</div>
 
-							<tr>
-								<td>Enter First Name:</td>
-								<td><sf:input path="firstName" value="${s.firstName}" /></td>
-								<td><sf:errors path="firstName" /></td>
-							</tr>
-							<tr>
-								<td>Enter Last Name:</td>
-								<td><sf:input path="lastName" value="${s.lastName}" /></td>
-								<td><sf:errors path="lastName" /></td>
-							</tr>
+							<button type="submit" class="btn btn-primary">Submit</button>
+							<a href="<spring:url value='/seller/account' />" class="btn btn-default">Cancel</a>
 
-							<tr>
-								<td>Enter User Email:</td>
-								<td><sf:input path="email" value="${s.email}" /></td>
-								<td><sf:errors path="email" /></td>
-							</tr>
-
-							<tr>
-								<td>Enter Password:</td>
-								<td><sf:password path="password" value="${s.password}" /></td>
-								<td><sf:errors path="password" /></td>
-							</tr>
-							<tr>
-								<td>Enter Phone No:</td>
-								<td><sf:input path="phoneNumber" value="${s.phoneNumber}" /></td>
-								<td><sf:errors path="phoneNumber" /></td>
-							</tr>
-							<tr>
-								<td>Enter Account No:</td>
-								<td><sf:input path="accountNumber"
-										value="${s.accountNumber}" /></td>
-								<td><sf:errors path="accountNumber" /></td>
-							</tr>
-							<tr>
-								<td>Enter IFSC No:</td>
-								<td><sf:input path="IFSC" value="${s.IFSC}" /></td>
-								<td><sf:errors path="IFSC" /></td>
-							</tr>
-							<tr>
-								<td>Enter Address:</td>
-								<td><sf:input path="address" value="${s.address}" /></td>
-								<td><sf:errors path="address" /></td>
-							</tr>
-							<tr>
-								<td>Status:</td>
-								<td><sf:input path="status" value="${s.status}"
-										readonly="true" /></td>
-								<td><sf:errors path="status" /></td>
-							</tr>
-
-							<tr>
-								<td><input type="submit" value="Update Details" /></td>
-
-
-							</tr>
-						</table>
-					</sf:form>
-
+						</sf:form>
+					</div>
 
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
-

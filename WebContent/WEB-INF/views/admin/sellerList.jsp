@@ -6,6 +6,7 @@
 				<div class="card-body">
 					<div>
 						<h4>Seller list</h4>
+						
 						<h3 style="color: red;"> ${requestScope.mesg}</h3>
                        
 						<table style=" margin: auto;" border="1">
@@ -22,7 +23,7 @@
 										href="<spring:url value='/seller/delete?sellerId=${s.sellerId}'/>">Delete</a></td>
 
 								<td><a
-										href="<spring:url value='/seller/verify?sellerId=${s.sellerId}'/>">Verify</a></td>
+										href="<spring:url value='/admin/verifyseller?sellerId=${s.sellerId}'/>">Verify</a></td>
 									
 								</tr>
 							</c:forEach>

@@ -1,8 +1,5 @@
 package com.app.controller;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -36,11 +33,7 @@ public class CustomersController {
 
 	public CustomersController() {
 		System.out.println("in Customer controller ctor");
-		Date date = new Date();
-        String strDateFormat = "hh:mm:ss a";
-        DateFormat dateFormat = new SimpleDateFormat(strDateFormat);
-        String formattedDate= dateFormat.format(date);
-        System.out.println("Current time of the day using Date - 12 hour format: " + formattedDate);
+		
 	}
 
 	@GetMapping("/login")
@@ -93,10 +86,11 @@ public class CustomersController {
 	}
 	
 	@GetMapping("/account")
-	public ModelAndView showAccount() {
+	public ModelAndView showAccount(Model map,HttpSession session) {
 		ModelAndView mv=new ModelAndView("/home/index");
 		System.out.println("in show account");
-
+		Customer customer = ( Customer ) session.getAttribute("customer_details");
+		map.addAttribute("customer_orders", customerService.getCustomerOrders(customer.getCustomerId()));
 		//return "/customer/login";
 		mv.addObject("customerAccount",true);
 		return mv;
@@ -149,7 +143,7 @@ public class CustomersController {
 	public ModelAndView showUpdateForm(@RequestParam int customerId, Model map) {
 		ModelAndView mv=new ModelAndView("/home/index");
 		System.out.println("inside showUpdateForm method ");
-		map.addAttribute("c", customerService.getCustomerDetails(customerId));
+		map.addAttribute("customer", customerService.getCustomerDetails(customerId));
 		mv.addObject("customerUpdate",true);
 		return mv;
 	}

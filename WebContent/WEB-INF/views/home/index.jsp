@@ -203,7 +203,7 @@
 		<c:if test="${showCategories == true}">
 			<%@include file="../customer/categories.jsp"%>
 		</c:if>
-		
+
 		<c:if test="${productList == true}">
 			<%@include file="../customer/categories.jsp"%>
 		</c:if>
@@ -211,7 +211,7 @@
 		<c:if test="${productDetails == true}">
 			<%@include file="../product/details.jsp"%>
 		</c:if>
-		
+
 		<c:if test="${customerAccount == true}">
 			<%@include file="../customer/account.jsp"%>
 		</c:if>
@@ -250,6 +250,9 @@
 			<%@include file="../orders/payment.jsp"%>
 		</c:if>
 
+		<c:if test="${placedOrder == true}">
+			<%@include file="../orders/placedorders.jsp"%>
+		</c:if>
 
 
 	</div>

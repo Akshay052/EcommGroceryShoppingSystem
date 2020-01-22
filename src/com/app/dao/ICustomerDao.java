@@ -12,8 +12,6 @@ public interface ICustomerDao {
 	
 	Customer getCustomerDetailsWithCart(int id);
 	
-	Customer getCustomerDetailsWithAddress(int id);
-	
 	boolean addCustomer(Customer c);
 	
 	boolean updateCustomer(int id,Customer c);
@@ -21,5 +19,7 @@ public interface ICustomerDao {
 	boolean deleteCustomer(int custid);
 
 	Customer authenticateCustomer(String email, String password);
+
+	Customer getCustomerOrders(Integer customerId);
 	
 }

@@ -1,4 +1,5 @@
 package com.app.daoImpl;
+
 import java.util.List;
 
 import org.hibernate.SessionFactory;
@@ -8,14 +9,15 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.app.dao.IOrdersDao;
 import com.app.pojos.Orders;
+import com.app.pojos.Payment;
 
 @Repository
 @Transactional
 public class OrderDaoImpl implements IOrdersDao {
-	
+
 	@Autowired
 	SessionFactory sf;
-	
+
 	@Override
 	public Orders getOrderDetails(int OrderId) {
 		// TODO Auto-generated method stub
@@ -25,15 +27,16 @@ public class OrderDaoImpl implements IOrdersDao {
 	@Override
 	public List<Orders> retrieveOrdersBySeller(int sellerId) {
 		// method returns list of all customers
-				List<Orders> orders;
-				String jpql = "select o from Orders o where o.orderId:=sellerId ";
+		List<Orders> orders;
+		String jpql = "select o from Orders o where o.orderId:=sellerId ";
 
-				try {
-					orders = sf.getCurrentSession().createQuery(jpql, Orders.class).setParameter("sellerId", sellerId).getResultList();
-				} catch (Exception e) {
-					throw e;
-				}
-				return orders;
+		try {
+			orders = sf.getCurrentSession().createQuery(jpql, Orders.class).setParameter("sellerId", sellerId)
+					.getResultList();
+		} catch (Exception e) {
+			throw e;
+		}
+		return orders;
 	}
 
 	@Override
@@ -42,7 +45,8 @@ public class OrderDaoImpl implements IOrdersDao {
 		String jpql = "select o from Orders o where o.CustomerId:=CustomerId ";
 
 		try {
-			orders = sf.getCurrentSession().createQuery(jpql, Orders.class).setParameter("CustomerId", CustomerId).getResultList();
+			orders = sf.getCurrentSession().createQuery(jpql, Orders.class).setParameter("CustomerId", CustomerId)
+					.getResultList();
 		} catch (Exception e) {
 			throw e;
 		}
@@ -65,12 +69,26 @@ public class OrderDaoImpl implements IOrdersDao {
 	@Override
 	public boolean addOrder(Orders order) {
 		// TODO Auto-generated method stub
-		boolean status=false;
+		boolean status = false;
 		try {
 			sf.getCurrentSession().save(order);
-			status=true;
+			status = true;
+		} catch (Exception e) {
+			throw e;
 		}
-		catch(Exception e) {
+		return status;
+	}
+
+	@Override
+	public boolean makePayment(Payment payment) {
+		// TODO Auto-generated method stub
+		boolean status = false;
+		try {
+			
+			sf.getCurrentSession().save(payment);
+			status = true;
+			
+		} catch (Exception e) {
 			throw e;
 		}
 		return status;

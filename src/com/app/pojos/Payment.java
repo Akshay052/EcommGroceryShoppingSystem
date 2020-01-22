@@ -1,26 +1,27 @@
 package com.app.pojos;
 
-import java.util.Date;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 @Entity
 public class Payment {
 
 	private Integer paymentId;
 	private double totalAmount;
-	private Date date;
+	private String date;
 
-	// mapping
-	private Cart cart;
+	public Payment() {
+		System.out.println("Payment constr");
+	}
+	public Payment(double totalAmount, String date) {
+		super();
+		this.totalAmount = totalAmount;
+		this.date = date;
+	}
 
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Integer getPaymentId() {
@@ -38,24 +39,21 @@ public class Payment {
 	public void setTotalAmount(double totalAmount) {
 		this.totalAmount = totalAmount;
 	}
-
-	@Temporal(TemporalType.DATE)
-	public Date getDate() {
+	
+	public String getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 
-	@OneToOne
-	@JoinColumn(name = "cart_id")
-	public Cart getCart() {
-		return cart;
-	}
 
-	public void setCart(Cart cart) {
-		this.cart = cart;
+	@Override
+	public String toString() {
+		return "Payment [paymentId=" + paymentId + ", totalAmount=" + totalAmount + ", date=" + date + "]";
 	}
+	
+	
 
 }

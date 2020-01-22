@@ -5,6 +5,8 @@ import com.app.pojos.Payment;
 
 public interface IOrdersService {
 
-	boolean addOrders(Customer customer, Payment payment);
+	boolean addOrders(Customer customer, Payment payment) throws Exception;
+
+	Payment makePayment(Customer customer) throws Exception;
 	
 }

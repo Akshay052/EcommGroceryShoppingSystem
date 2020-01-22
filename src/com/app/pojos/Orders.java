@@ -1,7 +1,5 @@
 package com.app.pojos;
 
-import java.util.Date;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,14 +11,16 @@ import javax.persistence.OneToOne;
 @Entity
 public class Orders {
 
+
 	private Integer orderId;
-	private Date orderDate;
+	private String orderDate;
 	private String productName;
 	private double weight;
 	private int quantity;
 	private double value;
 	private String billingAddress;
 	private String shippingAddress;
+	private String status;
 	// Mapping
 
 	private Customer customer;
@@ -32,16 +32,18 @@ public class Orders {
 		System.out.println("In Orders constr");
 	}
 
-	public Orders(Date orderDate, String productName, double weight, int quantity, double value, String billingAddress,
+	public Orders(String date, String productName, double weight, int quantity, double value, String billingAddress,
 			String shippingAddress) {
 		super();
-		this.orderDate = orderDate;
+		
+		this.orderDate = date;
 		this.productName = productName;
 		this.weight = weight;
 		this.quantity = quantity;
 		this.value = value;
 		this.billingAddress = billingAddress;
 		this.shippingAddress = shippingAddress;
+		this.status = "pending";
 	}
 
 	// Methods
@@ -56,11 +58,12 @@ public class Orders {
 		this.orderId = orderId;
 	}
 
-	public Date getOrderDate() {
+	
+	public String getOrderDate() {
 		return orderDate;
 	}
 
-	public void setOrderDate(Date orderDate) {
+	public void setOrderDate(String orderDate) {
 		this.orderDate = orderDate;
 	}
 
@@ -110,6 +113,14 @@ public class Orders {
 
 	public void setShippingAddress(String shippingAddress) {
 		this.shippingAddress = shippingAddress;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	@ManyToOne

@@ -18,5 +18,7 @@ public interface ICustomerService {
 	boolean deleteCustomer(int custid);
 
 	Customer authenticateCustomer(String email, String password);
+
+	Customer getCustomerOrders(Integer customerId);
 	
 }

@@ -68,7 +68,7 @@ public class CartItem {
 		this.product = product;
 	}
 	
-	@ManyToOne
+	@ManyToOne()
 	@JoinColumn(name="cart_id")
 	public Cart getCart() {
 		return cart;

@@ -20,23 +20,17 @@ function validatepass()
 		  
 		
 }
-function validatephone()
+function makePayment()
 {
 	
-	var phn=document.getElementById("phone").value;
     var myp2=document.getElementById("msg2");
 
       
-		
-		  if(phn.length==10)
-		{		  
+		alert("are you sure ...");
+		 
+			myp2.innerHTML="Order placed successfully";
 			return true;
-		}
 		
-		else{
-			myp.innerHTML="phone no should 10 numbers";
-			return false;
-		}
 		  
 		
 }

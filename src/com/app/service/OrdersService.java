@@ -30,33 +30,56 @@ public class OrdersService implements IOrdersService {
 		boolean status = false;
 		try {
 			Cart cart = customer.getCart();
+			System.out.println("cart in addorders:" + cart);
 			for (CartItem cartItem : cart.getCartItems()) {
 
-				DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+				DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 				Date dateobj = new Date();
-				System.out.println(df.format(dateobj));
-				// Date orderDate, String productName, double weight, int quantity, double
-				// value, String billingAddress, String shippingAddress
-				
-				Orders order = new Orders(dateobj, cartItem.getProduct().getProductName(),
+				String date = sdf.format(dateobj);
+				System.out.println(date);
+
+				Orders order = new Orders(date, cartItem.getProduct().getProductName(),
 						cartItem.getProduct().getWeight(), cartItem.getQuantity(), cartItem.getValue(),
 						customer.getBillingAddress(), customer.getShippingAddress());
-				
+
 				order.setCustomer(customer);
 				order.setSeller(cartItem.getProduct().getSeller());
 				order.setPayment(payment);
-				
+				System.out.println("Order:" + order);
 				orderDao.addOrder(order);
-				System.out.println("order placed:"+order);
-
+				System.out.println("order placed:" + order);
+				
+			}
+			System.out.println("all orders placed");
+			for (CartItem cartItem : cart.getCartItems()) {
+				cartDao.deleteCartItem(cartItem.getCartItemId());
 			}
 			cartDao.deleteCart(cart);
-			System.out.println("cart cleared orderplaced");
+			System.out.println("cart cleared ");
+			
 			status = true;
 		} catch (Exception e) {
 			throw e;
 		}
 		return status;
+	}
+
+	@Override
+	public Payment makePayment(Customer customer) throws Exception {
+		Payment payment;
+		try {
+
+			DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			Date dateobj = new Date();
+			String date = sdf.format(dateobj);
+			System.out.println(date);
+			payment = new Payment(customer.getCart().getAmount(), date);
+			orderDao.makePayment(payment);
+
+		} catch (Exception e) {
+			throw e;
+		}
+		return payment;
 	}
 
 }

@@ -23,6 +23,7 @@ public class Cart {
 	
 	private double amount;
 	
+	
 	// Mapping
 	
 	//@JsonIgnore
@@ -35,12 +36,7 @@ public class Cart {
 	
 	public Cart() {
 		System.out.println("In cart Constr");
-	}
-	
-	public Cart(Integer cartId, double amount) {
-		super();
-		this.cartId = cartId;
-		this.amount = amount;
+		
 	}
 
 	// Methods

@@ -133,12 +133,14 @@ public class CustomerDaoImpl implements ICustomerDao {
 		return customer;
 	}
 
-	public Customer getCustomerDetailsWithAddress(int id) {
+
+	@Override
+	public Customer getCustomerOrders(Integer customerId) {
 		// TODO Auto-generated method stub
 		Customer customer;
 		try {
-			String jpql = "select c from Customer c join fetch c.addresses where c.customerId=:id";
-			customer = sf.getCurrentSession().createQuery(jpql, Customer.class).setParameter("id", id)
+			String jpql = "select c from Customer c join fetch c.orders where c.customerId=:id";
+			customer = sf.getCurrentSession().createQuery(jpql, Customer.class).setParameter("id", customerId)
 					.getSingleResult();
 		} catch (Exception e) {
 			throw e;

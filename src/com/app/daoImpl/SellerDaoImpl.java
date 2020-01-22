@@ -25,17 +25,26 @@ public class SellerDaoImpl implements ISellerDao {
 
 	@Override
 	public Seller getDetails(int id) {
-		return sf.getCurrentSession().get(Seller.class, id);
+		Seller seller;
+		
+		String query = "select s from Seller s join fetch s.products where s.sellerId=:id";
+		//String query = "select s from seller s where s.sellerId=:id";
+		try {
+			seller = sf.getCurrentSession().createQuery(query,Seller.class).setParameter("id", id).getSingleResult();
+			
+		} catch (Exception e) {
+			throw e;
+		}
+		return seller;
 	}
 
 	@Override
-	public boolean updateSeller(int id,Seller s) {
-		boolean status=false;
-		try{
+	public boolean updateSeller(int id, Seller s) {
+		boolean status = false;
+		try {
 			sf.getCurrentSession().update(s);
-			status=true;
-		}
-		catch(Exception e) {
+			status = true;
+		} catch (Exception e) {
 			throw e;
 		}
 		return status;
@@ -61,16 +70,15 @@ public class SellerDaoImpl implements ISellerDao {
 
 	@Override
 	public boolean addSeller(Seller s) {
-		boolean status=false;
+		boolean status = false;
 		try {
 			sf.getCurrentSession().persist(s);
-			status=true;
-		}
-		catch(Exception e) {
+			status = true;
+		} catch (Exception e) {
 			throw e;
 		}
 		return status;
-		
+
 	}
 
 	@Override
@@ -78,9 +86,10 @@ public class SellerDaoImpl implements ISellerDao {
 		// TODO Auto-generated method stub
 		Seller seller;
 		try {
-			seller=sf.getCurrentSession().createQuery("select s from Seller s where s.email=:email and s.password=:password", Seller.class).setParameter("email", email).setParameter("password", password).getSingleResult();
-		}
-		catch(Exception e) {
+			seller = sf.getCurrentSession()
+					.createQuery("select s from Seller s where s.email=:email and s.password=:password", Seller.class)
+					.setParameter("email", email).setParameter("password", password).getSingleResult();
+		} catch (Exception e) {
 			throw e;
 		}
 		return seller;

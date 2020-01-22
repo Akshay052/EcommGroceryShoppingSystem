@@ -74,7 +74,7 @@ public class CustomerService implements ICustomerService {
 			customer = customerDao.authenticateCustomer(email, password);
 			System.out.println("found cart ");
 
-			if (customer.getCart() == null) {
+			if ( customer.getCart() == null ) {
 				System.out.println("adding new cart");
 				Cart cart = new Cart();
 
@@ -92,6 +92,12 @@ public class CustomerService implements ICustomerService {
 		
 		return customer;
 
+	}
+
+	@Override
+	public Customer getCustomerOrders(Integer customerId) {
+		// TODO Auto-generated method stub
+		return customerDao.getCustomerOrders(customerId);
 	}
 
 }

@@ -5,7 +5,7 @@
 			<div class="card card-signin my-5">
 				<div class="card-body">
 
-					<h4 style="color: red;">status:${requestScope.mesg}</h4>
+					<h4 style="color: red;">${requestScope.mesg}</h4>
 					<h4>Welcome:${sessionScope.admin_details}</h4>
 
 

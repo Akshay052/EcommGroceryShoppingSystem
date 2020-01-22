@@ -60,8 +60,8 @@
 								<div class="fix-height">
 									<a href="#" class="title">${p.productName}</a>
 									<div class="price-wrap mt-2">
-										<span class="price">${p.price}</span>
-										<del class="weight">${p.weight}</del>
+										<span class="price">Price: ${p.price}</span>
+										<span class="weight">Weight: ${p.weight}</span>
 									</div>
 									<!-- price-wrap.// -->
 								</div>

@@ -22,25 +22,26 @@
 					<figure class="icontext">
 						<div class="icon">
 							<img class="rounded-circle img-sm border"
-								src="images/avatars/avatar3.jpg">
+								src="images/avatars/avatar3.jpg" alt="User">
 						</div>
 						<div class="text">
 							<p>
-								<strong> ${sessionScope.customer_details.firstName}
-									${sessionScope.customer_details.lastName}</strong> <br>
-								${sessionScope.customer_details.email} <br>
+								<strong> ${customer_orders.firstName} &nbsp;
+									${customer_orders.lastName}</strong> <br> ${customer_orders.email}
+								<br>
 							</p>
-							<a href="<spring:url value='/customer/update'/>">Edit</a>
+							<a href="<spring:url value='/customer/update?customerId=${customer_orders.customerId}'/>">Edit</a>
 						</div>
 					</figure>
 					<hr>
 					<p>
-						<i class="fa fa-map-marker text-muted"></i> &nbsp; My address: <br>
-						Tashkent city, Street name, Building 123, House 321 &nbsp <a
-							href="#" class="btn-link"> Edit</a>
+						&nbsp; Billing address: <br>
+						${customer_orders.billingAddress} &nbsp;
+					<hr />
+					<br /> &nbsp; Billing address: <br>
+					${customer_orders.shippingAddress} &nbsp;
+
 					</p>
-
-
 
 				</div>
 				<!-- card-body .// -->
@@ -48,31 +49,25 @@
 			<!-- card.// -->
 
 			<article class="card  mb-3" id="orders">
-				<div class="card-body">
-					<h5 class="card-title mb-4">My orders</h5>
 
+				<h5 class="card-title mb-4">My orders</h5>
+
+				<caption>Placed Orders</caption>
+		
+
+				<c:forEach var="order" items="${customer_orders.orders}">
 					<div class="row">
-						<c:forEach var="order" items="${requestScope.customer_orders}">
-							<div class="col-md-6">
-								<figure class="itemside  mb-3">
-									<div class="aside">
-										<img src="images/items/1.jpg" class="border img-sm">
-									</div>
-									<figcaption class="info">
-										<time class="text-muted">
-											<i class="fa fa-calendar-alt"></i> 12.09.2019
-										</time>
-										<p>Great item name goes here</p>
-										<span class="text-warning">Pending</span>
-									</figcaption>
-								</figure>
-							</div>
-							<!-- col.// -->
-						</c:forEach>
+						<div class="col-md-6">Product Name:${order.productName}</div>
+						<div class="col-md-6">Weight:${order.weight}</div>
+						<div class="col-md-6">Quantity:${order.quantity}</div>
+						<div class="col-md-6">Total:${order.value}</div>
+						<div class="col-md-6">Order Date:${order.orderDate}</div><br/>
+						<div class="col-md-6">Billing Address:${order.billingAddress}</div><br/>
+						<div class="col-md-6">Shipping Address:${order.shippingAddress}</div>
+						<hr/>
 					</div>
-					<!-- row.// -->
-				</div>
-				<!-- card-body .// -->
+				</c:forEach>
+
 			</article>
 			<!-- card.// --> </main>
 			<!-- col.// -->
