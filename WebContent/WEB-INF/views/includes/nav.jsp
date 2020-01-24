@@ -5,7 +5,7 @@
 			<div class="row align-items-center">
 				<div class="col-lg-2 col-4">
 					<a href="${SITE_URL}" class="brand-wrap"> <img class="logo"
-						src="${images}/logo.jpeg">
+						src="${images}/logo.jpeg"><strong>Best Deals</strong>
 					</a>
 					<!-- brand-wrap.// -->
 				</div>
@@ -29,7 +29,7 @@
 						</c:if>
 						<c:if test="${sessionScope.seller_details != null}">
 							<div class="widget-header icontext">
-								<a href="<spring:url value='/customer/account'/>"
+								<a href="<spring:url value='/seller/account'/>"
 									class="icon icon-sm rounded-circle border">User</a>
 								<div class="text">
 									<span class="text-muted">Welcome:
@@ -38,7 +38,8 @@
 								</div>
 							</div>
 						</c:if>
-						<c:if test="${sessionScope.customer_details == null}">
+						<c:if
+							test="${sessionScope.customer_details == null and sessionScope.seller_details == null}">
 							<div>
 								<button class="btn btn-lg btn-block " type="submit">
 									<a href="<spring:url value='/home/login'/>"> Login</a>

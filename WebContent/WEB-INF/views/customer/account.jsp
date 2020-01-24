@@ -7,6 +7,7 @@
 				<ul class="list-group">
 					<a class="list-group-item active" href="#overview'/>"> Account
 						overview</a>
+					<a class="list-group-item" href="<spring:url value='/customer/update?customerId=${customer_orders.customerId}'/>"> Update Profile</a>
 					<a class="list-group-item" href="#orders"> My Orders </a>
 					<a class="list-group-item"
 						href="<spring:url value='/customer/logout'/>">Log Out</a>
@@ -30,7 +31,7 @@
 									${customer_orders.lastName}</strong> <br> ${customer_orders.email}
 								<br>
 							</p>
-							<a href="<spring:url value='/customer/update?customerId=${customer_orders.customerId}'/>">Edit</a>
+							
 						</div>
 					</figure>
 					<hr>

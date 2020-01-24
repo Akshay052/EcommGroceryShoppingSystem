@@ -19,4 +19,6 @@ public interface IOrdersDao {
 
 	public boolean makePayment(Payment payment);
 
+	public boolean updateOrder(Orders order);
+
 }

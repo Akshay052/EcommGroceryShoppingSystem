@@ -41,7 +41,7 @@ public class ProductService implements IProductService {
 	}
 
 	@Override
-	public boolean updateproduct(int productId, Product product) {
+	public boolean updateProduct(Integer productId, Product product) {
 		// TODO Auto-generated method stub
 		return productDao.updateProduct(productId, product);
 	}

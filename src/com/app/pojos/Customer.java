@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -127,7 +128,7 @@ public class Customer {
 		this.cart = cart;
 	}
 
-	@OneToMany(mappedBy = "customer")
+	@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	public List<Orders> getOrders() {
 		return orders;

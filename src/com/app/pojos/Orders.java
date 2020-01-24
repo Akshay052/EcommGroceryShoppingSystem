@@ -123,7 +123,7 @@ public class Orders {
 		this.status = status;
 	}
 
-	@ManyToOne
+	@ManyToOne()
 	@JoinColumn(name = "customer_id")
 	public Customer getCustomer() {
 		return customer;
@@ -133,7 +133,7 @@ public class Orders {
 		this.customer = customer;
 	}
 
-	@ManyToOne
+	@ManyToOne()
 	@JoinColumn(name = "seller_id")
 	public Seller getSeller() {
 		return seller;
@@ -143,7 +143,7 @@ public class Orders {
 		this.seller = seller;
 	}
 
-	@OneToOne
+	@OneToOne()
 	@JoinColumn(name = "payment_id")
 	public Payment getPayment() {
 		return payment;

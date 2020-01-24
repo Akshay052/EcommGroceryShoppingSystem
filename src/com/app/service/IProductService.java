@@ -14,6 +14,6 @@ public interface IProductService {
 	public Product getProductDetails(int id);
 
 	boolean addProduct(Product product, String categoryName, Seller seller);
-	boolean updateproduct(int productId,Product product);
 	boolean deleteProduct(int id);
+	public boolean updateProduct(Integer id, Product product);
 }

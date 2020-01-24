@@ -17,8 +17,10 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.app.pojos.Category;
+import com.app.pojos.Product;
 import com.app.pojos.Seller;
 import com.app.service.ICategoryService;
+import com.app.service.IProductService;
 import com.app.service.ISellerService;
 
 @Controller
@@ -31,10 +33,22 @@ public class SellersController {
 	@Autowired
 	ICategoryService categoryService;
 
+	@Autowired
+	IProductService productService;
+
 	public SellersController() {
 		System.out.println("in Seller controller ctor");
 	}
 
+	@GetMapping("/account")
+	public ModelAndView showProfile() {
+		ModelAndView mv = new ModelAndView("/home/index");
+		System.out.println("in show login form");
+		// return "/customer/login";
+		mv.addObject("sellerAccount", true);
+		return mv;
+	}
+	
 	@GetMapping("/login")
 	public ModelAndView showLoginForm() {
 		ModelAndView mv = new ModelAndView("/home/index");
@@ -72,6 +86,42 @@ public class SellersController {
 
 			return mv;
 
+		}
+
+	}
+
+	@GetMapping("/productlist")
+	public ModelAndView getProductListBySeller(HttpSession session, Model map) {
+		System.out.println("inside get products Seller");
+		ModelAndView mv = new ModelAndView("/home/index");
+		Seller seller = (Seller) session.getAttribute("seller_details");
+		Seller sellerDetails = sellerService.getSellerDetailsByProducts(seller.getSellerId());
+		List<Product> productList = sellerDetails.getProducts();
+		if (productList.size() != 0) {
+			map.addAttribute("product_list", productList);
+			mv.addObject("productListforsSeller", true);
+			return mv;
+
+		} else {
+			map.addAttribute("mesg", "List Not Found");
+			return mv;
+
+		}
+	}
+
+	@GetMapping("/orderlist")
+	public ModelAndView getOrdersListBySeller(HttpSession session, Model map) {
+		System.out.println("inside get orders Seller");
+		ModelAndView mv = new ModelAndView("/home/index");
+		try {
+			Seller seller = (Seller) session.getAttribute("seller_details");
+			Seller sellerDetails = sellerService.getSellerDetailsByOrders(seller.getSellerId());
+			session.setAttribute("seller_details", sellerDetails);
+			mv.addObject("ordersList", true);
+			return mv;
+		} catch (Exception e) {
+			map.addAttribute("mesg", "List Not Found");
+			return mv;
 		}
 
 	}
@@ -122,35 +172,31 @@ public class SellersController {
 		return mv;
 	}
 
-	@GetMapping("/update")
-	public ModelAndView showUpdateForm(@RequestParam int sellerId, Model map) {
+	@PostMapping("/update")
+	public ModelAndView showUpdateForm(@RequestParam int sellerId) {
 		ModelAndView mv = new ModelAndView("/home/index");
 		System.out.println("inside showUpdateForm method ");
-		map.addAttribute("s", sellerService.getSellerDetails(sellerId));
+		mv.addObject("seller", sellerService.getSellerDetails(sellerId));
 		mv.addObject("sellerUpdate", true);
 		return mv;
 	}
 
-	@PostMapping("/update")
-	public ModelAndView updateSeller(@RequestParam int sellerId, @Valid Seller seller, BindingResult result,
-			Model map) {
-		System.out.println("in update Seller" + sellerId + " " + seller);
-		ModelAndView mv = new ModelAndView("/home/index");
-
+	@PostMapping("/updateseller")
+	public String updateSeller(@Valid Seller seller, BindingResult result, Model map,RedirectAttributes flashMap) {
+		System.out.println("in update Seller" +  " " + seller);
 		try {
-			if (sellerService.updateSeller(sellerId, seller)) {
+			if (sellerService.updateSeller(seller.getSellerId(), seller)) {
 
-				map.addAttribute("mesg", "Seller updated successfully");
+				flashMap.addAttribute("mesg", "Seller updated successfully");
 
 			}
 
 		} catch (Exception e) {
-			map.addAttribute("mesg", "Seller NOT Updated ");
+			flashMap.addAttribute("mesg", "Seller NOT Updated ");
 
 		}
-		mv.addObject("sellerList", true);
-
-		return mv;
+		
+		return "redirect:/seller/account";
 
 	}
 

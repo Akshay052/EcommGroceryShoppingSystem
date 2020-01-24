@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Payment {
@@ -12,6 +13,8 @@ public class Payment {
 	private double totalAmount;
 	private String date;
 
+	private Orders order;
+	
 	public Payment() {
 		System.out.println("Payment constr");
 	}
@@ -48,7 +51,13 @@ public class Payment {
 		this.date = date;
 	}
 
-
+	@OneToOne(mappedBy = "payment")
+	public Orders getOrder() {
+		return order;
+	}
+	public void setOrder(Orders order) {
+		this.order = order;
+	}
 	@Override
 	public String toString() {
 		return "Payment [paymentId=" + paymentId + ", totalAmount=" + totalAmount + ", date=" + date + "]";

@@ -7,10 +7,10 @@
 				<div class="card-body">
 					<div class=container>
 						<div class="page-header">
-							<h1>Update</h1>
+							<h1>Update Details</h1>
 						</div>
 
-						<sf:form method="post" modelAttribute="seller"
+						<sf:form method="post" action="updateseller" modelAttribute="seller"
 							onsubmit="return validatepass()">
 							<h3>Basic Info</h3>
 							<div class="form-group">

@@ -50,35 +50,39 @@
 
 			<div class="row">
 				<c:forEach var="p" items="${requestScope.product_list}">
-					<div class="col-md-4">
+					<c:if test="${p.quantity > 0}">
+					
+						<div class="col-md-4">
 						<figure class="card card-product-grid">
 							<div class="img-wrap">
 								<img src="${images}/products/${p.imageUrl}">
 							</div>
-							<!-- img-wrap.// -->
-							<figcaption class="info-wrap">
-								<div class="fix-height">
-									<a href="#" class="title">${p.productName}</a>
-									<div class="price-wrap mt-2">
-										<span class="price">Price: ${p.price}</span>
-										<span class="weight">Weight: ${p.weight}</span>
-									</div>
-									<!-- price-wrap.// -->
+						<!-- img-wrap.// -->
+						<figcaption class="info-wrap">
+							<div class="fix-height">
+								<a href="#" class="title">${p.productName}</a>
+								<div class="price-wrap mt-2">
+									<span class="price">Price: ${p.price}</span> <span
+										class="weight">Weight: ${p.weight}</span>
 								</div>
-								<a
-									href="<spring:url value='/product/details?productId=${p.id}'/>"
-									class="btn btn-block btn-primary">Details </a>
-							</figcaption>
+							</div>
+
+							<form action="<spring:url value='/product/details' />"
+								method="post">
+								<input type="hidden" name="productId" value="${p.id}" />
+								<button type="submit" class="btn btn-block btn-primary">Details</button>
+							</form>
+
+						</figcaption>
 						</figure>
-					</div>
-				</c:forEach>
-				<!-- col.// -->
-
 			</div>
-			<!-- row end.// --> </main>
-			<!-- col.// -->
-
+			</c:if> </c:forEach> <!-- col.// -->
 		</div>
+		<!-- row end.// -->
+		</main>
+		<!-- col.// -->
+
+	</div>
 
 	</div>
 	<!-- container .//  -->

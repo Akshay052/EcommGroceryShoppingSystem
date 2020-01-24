@@ -7,9 +7,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.app.pojos.Customer;
+import com.app.pojos.Orders;
 import com.app.pojos.Payment;
 import com.app.service.ICustomerService;
 import com.app.service.IOrdersService;
@@ -20,14 +22,14 @@ public class OrdersController {
 
 	@Autowired
 	IOrdersService ordersService;
-	
+
 	@Autowired
 	ICustomerService customerService;
 
 	public OrdersController() {
 		System.out.println("orders controller");
 	}
-	
+
 	@GetMapping("/payment")
 	public ModelAndView showPaymentPage(HttpSession session) {
 		ModelAndView mv = new ModelAndView("/home/index");
@@ -47,12 +49,11 @@ public class OrdersController {
 		try {
 			Customer customer = (Customer) session.getAttribute("customer_details");
 			Payment payment = ordersService.makePayment(customer);
-			System.out.println("payment:"+payment);
+			System.out.println("payment:" + payment);
 			session.setAttribute("payment_details", payment);
 			return "redirect:/orders/placeorder";
-		}
-		catch(Exception ex) {
-			System.out.println("exception:"+ex);
+		} catch (Exception ex) {
+			System.out.println("exception:" + ex);
 			return "redirect:/orders/placeorder";
 		}
 
@@ -60,7 +61,7 @@ public class OrdersController {
 
 	@PostMapping("/placeorder")
 	public ModelAndView placeOrders(HttpSession session) {
-		
+
 		ModelAndView mv = new ModelAndView("/home/index");
 
 		try {
@@ -71,6 +72,7 @@ public class OrdersController {
 			System.out.println("Payment:" + payment);
 			ordersService.addOrders(customer, payment);
 			System.out.println("Order placed controller...");
+
 			session.setAttribute("customer_details", customerService.getCustomerDetails(customer.getCustomerId()));
 			mv.addObject("placedOrder", true);
 		} catch (Exception e) {
@@ -79,4 +81,18 @@ public class OrdersController {
 		return mv;
 	}
 
+	@PostMapping("/update")
+	public String updateOrder(@RequestParam int orderId) {
+		try {
+			
+			System.out.println("indide update order"+orderId);
+			Orders order = ordersService.getOrder(orderId);
+			System.out.println("order:"+order);
+			boolean st=ordersService.updateOrder(order);
+			System.out.println("status:"+st);
+			return "redirect:/seller/orderlist";
+		} catch (Exception e) {
+			return "redirect:/seller/error";
+		}
+	}
 }

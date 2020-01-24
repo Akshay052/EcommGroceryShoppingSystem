@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.app.pojos.Category;
 import com.app.pojos.Product;
@@ -116,14 +117,14 @@ public class ProductsController {
 	public String addImage(@RequestParam MultipartFile file, HttpSession session) {
 
 		String uploadLocation = imagePath;
-		//C:\Users\tnpat\Documents\ProRev\EcommerceMVC\WebContent\resources\images\products
+		// C:\Users\tnpat\Documents\ProRev\EcommerceMVC\WebContent\resources\images\products
 		System.out.println("uploadLocation:" + uploadLocation);
 		if (file.isEmpty()) {
 			System.out.println("file is empty");
 		}
 
 		try {
-			
+
 			Product product = (Product) session.getAttribute("product");
 			// Get the file and save it somewhere
 
@@ -149,22 +150,49 @@ public class ProductsController {
 
 	}
 
-	@GetMapping("/delete")
-	public ModelAndView deleteSeller(@RequestParam int id, Model map) {
+	@PostMapping("/update")
+	public ModelAndView showUpdateForm(@RequestParam int productId) {
+		ModelAndView mv = new ModelAndView("/home/index");
+		try {
+			Product product = productService.getProductDetails(productId);
+			mv.addObject("product", product);
+			mv.addObject("updateProduct", true);
+
+		} catch (Exception e) {
+			mv.addObject("errorInUpdate", true);
+		}
+		return mv;
+	}
+
+	@PostMapping("/updateproduct")
+	public String updateProduct(@Valid Product product, BindingResult result, RedirectAttributes flashMap) {
+
+		try {
+			if (productService.updateProduct(product.getId(), product)) {
+				flashMap.addAttribute("mesg", "product updated successfully");
+			}
+		} catch (Exception e) {
+			flashMap.addAttribute("mesg", "error in updating product");
+			return "redirect:/seller/error";
+		}
+		return "redirect:/seller/productlist";
+	}
+
+	@PostMapping("/delete")
+	public ModelAndView deleteProduct(@RequestParam int productId, Model map) {
 		ModelAndView mv = new ModelAndView("/home/index");
 
 		try {
-			if (productService.deleteProduct(id)) {
+			if (productService.deleteProduct(productId)) {
 				map.addAttribute("mesg", "product deleted successfully");
 			}
 		} catch (Exception e) {
 			map.addAttribute("mesg", "product not deleted");
 		}
-		mv.addObject("sellertask", true);
 		return mv;
 	}
 
-	@GetMapping("/details")
+	@PostMapping("/details")
 	public ModelAndView getProductDetails(@RequestParam int productId, Model map) {
 
 		ModelAndView mv = new ModelAndView("/home/index");

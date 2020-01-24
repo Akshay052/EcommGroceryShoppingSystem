@@ -15,6 +15,10 @@ public interface ISellerDao {
 	boolean deleteSeller(int Sellerid);
 
 	Seller authenticateSeller(String email, String password);
+
+	Seller getSellerDetailsByProducts(Integer sellerId);
+
+	Seller getSellerDetailsByOrders(Integer sellerId);
 	
 }
 

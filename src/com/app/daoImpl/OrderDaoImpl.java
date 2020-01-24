@@ -19,9 +19,10 @@ public class OrderDaoImpl implements IOrdersDao {
 	SessionFactory sf;
 
 	@Override
-	public Orders getOrderDetails(int OrderId) {
+	public Orders getOrderDetails(int orderId) {
 		// TODO Auto-generated method stub
-		return null;
+		Orders order=sf.getCurrentSession().get(Orders.class, orderId);
+		return order;
 	}
 
 	@Override
@@ -92,6 +93,22 @@ public class OrderDaoImpl implements IOrdersDao {
 			throw e;
 		}
 		return status;
+	}
+
+	@Override
+	public boolean updateOrder(Orders order) {
+		// TODO Auto-generated method stub
+		boolean status = false;
+		try {
+			
+			sf.getCurrentSession().update(order);;
+			status = true;
+			
+		} catch (Exception e) {
+			throw e;
+		}
+		return status;
+		
 	}
 
 }

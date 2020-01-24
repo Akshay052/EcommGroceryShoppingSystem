@@ -9,11 +9,13 @@ import org.springframework.stereotype.Service;
 
 import com.app.dao.ICartDao;
 import com.app.dao.IOrdersDao;
+import com.app.dao.IProductDao;
 import com.app.pojos.Cart;
 import com.app.pojos.CartItem;
 import com.app.pojos.Customer;
 import com.app.pojos.Orders;
 import com.app.pojos.Payment;
+import com.app.pojos.Product;
 
 @Service
 public class OrdersService implements IOrdersService {
@@ -23,6 +25,9 @@ public class OrdersService implements IOrdersService {
 
 	@Autowired
 	ICartDao cartDao;
+	
+	@Autowired
+	IProductDao productDao;
 
 	@Override
 	public boolean addOrders(Customer customer, Payment payment) {
@@ -47,8 +52,14 @@ public class OrdersService implements IOrdersService {
 				order.setPayment(payment);
 				System.out.println("Order:" + order);
 				orderDao.addOrder(order);
-				System.out.println("order placed:" + order);
+				//remove product from inventory
+				Product product = cartItem.getProduct();
+				int quantity = product.getQuantity() - cartItem.getQuantity();
+				product.setQuantity(quantity);
+				productDao.updateProduct(product.getId(), product);
 				
+				System.out.println("order placed:" + order);
+
 			}
 			System.out.println("all orders placed");
 			for (CartItem cartItem : cart.getCartItems()) {
@@ -56,7 +67,9 @@ public class OrdersService implements IOrdersService {
 			}
 			cartDao.deleteCart(cart);
 			System.out.println("cart cleared ");
-			
+			Cart newCart = new Cart();
+			cart.setCustomer(customer);
+			cartDao.addCart(newCart);
 			status = true;
 		} catch (Exception e) {
 			throw e;
@@ -80,6 +93,33 @@ public class OrdersService implements IOrdersService {
 			throw e;
 		}
 		return payment;
+	}
+
+	@Override
+	public Orders getOrder(int orderId) {
+		// TODO Auto-generated method stub
+		Orders order;
+		try {
+			order = orderDao.getOrderDetails(orderId);
+		}
+		catch(Exception e) {
+			throw e;
+		}
+		return order;
+	}
+
+	@Override
+	public boolean updateOrder(Orders order) {
+		// TODO Auto-generated method stub
+		boolean status = false;
+		try {
+			order.setStatus("delivered");
+			orderDao.updateOrder(order);
+		}
+		catch(Exception e) {
+			throw e;
+		}
+		return status;
 	}
 
 }

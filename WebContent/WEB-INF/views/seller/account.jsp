@@ -6,11 +6,10 @@
 			<aside class="col-md-3">
 				<ul class="list-group">
 					<a class="list-group-item active" href="#"> Account overview</a>
-					<a class="list-group-item" href="#"> My Orders </a>
-					<a class="list-group-item" href="#"> My Selling Items </a>
+					<a class="list-group-item" href="#"> My Products </a>
 					<a class="list-group-item" href="#"> Received orders </a>
 					<a class="list-group-item"
-						href="<spring:url value='/customer/logout'/>">Log Out</a>
+						href="<spring:url value='/seller/logout'/>">Log Out</a>
 
 				</ul>
 			</aside>
@@ -23,50 +22,23 @@
 					<figure class="icontext">
 						<div class="icon">
 							<img class="rounded-circle img-sm border"
-								src="images/avatars/avatar3.jpg">
+								src="images/avatars/avatar3.jpg" alt="User">
 						</div>
 						<div class="text">
-							<strong> Mr. Jackson Someone </strong> <br>
-							myloginname@gmail.com <br> <a href="#">Edit</a>
+							<strong> ${seller_details.firstName}
+								${seller_details.lastName} </strong> <br> ${seller_details.email} <br>
+							<form action="<spring:url value='/seller/update'/>" method="post">
+								<input type="hidden" name="sellerId"
+									value="${seller_details.sellerId}" />
+								<button type="submit" class="btn btn-block btn-link">Edit</button>
+							</form>
 						</div>
 					</figure>
 					<hr>
 					<p>
 						<i class="fa fa-map-marker text-muted"></i> &nbsp; My address: <br>
-						Tashkent city, Street name, Building 123, House 321 &nbsp <a
-							href="#" class="btn-link"> Edit</a>
+						${seller_details.address} &nbsp; 
 					</p>
-
-
-
-					<article class="card-group">
-						<figure class="card bg">
-							<div class="p-3">
-								<h5 class="card-title">38</h5>
-								<span>Orders</span>
-							</div>
-						</figure>
-						<figure class="card bg">
-							<div class="p-3">
-								<h5 class="card-title">5</h5>
-								<span>Wishlists</span>
-							</div>
-						</figure>
-						<figure class="card bg">
-							<div class="p-3">
-								<h5 class="card-title">12</h5>
-								<span>Awaiting delivery</span>
-							</div>
-						</figure>
-						<figure class="card bg">
-							<div class="p-3">
-								<h5 class="card-title">50</h5>
-								<span>Delivered items</span>
-							</div>
-						</figure>
-					</article>
-
-
 				</div>
 				<!-- card-body .// -->
 			</article>

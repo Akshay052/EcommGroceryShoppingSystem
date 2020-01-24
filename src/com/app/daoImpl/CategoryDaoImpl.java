@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.NoResultException;
 
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -51,6 +52,37 @@ public class CategoryDaoImpl implements ICategoryDao {
 		}
 		return category;
 		
+	}
+
+	@Override
+	public boolean deleteCategory(int categoryId) {
+		// TODO Auto-generated method stub
+		boolean status = false;
+		try {
+			Session hs = sf.getCurrentSession();
+			Category category = hs.get(Category.class, categoryId);
+			hs.delete(category);
+			status = true;
+		}
+		catch(Exception e) {
+			throw e;
+		}
+		return status;
+	}
+
+	@Override
+	public boolean addCategory(String categoryName) {
+		// TODO Auto-generated method stub
+		boolean status = false;
+		try {
+			Category category = new Category(categoryName);
+			sf.getCurrentSession().save(category);
+			status = true;
+		}
+		catch(Exception e) {
+			throw e;
+		}
+		return status;
 	}
 
 }

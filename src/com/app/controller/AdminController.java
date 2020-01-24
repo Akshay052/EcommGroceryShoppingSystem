@@ -15,9 +15,13 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.app.pojos.Admin;
+import com.app.pojos.Category;
 import com.app.pojos.Customer;
 import com.app.pojos.Seller;
-import com.app.service.*;
+import com.app.service.IAdminService;
+import com.app.service.ICategoryService;
+import com.app.service.ICustomerService;
+import com.app.service.ISellerService;
 
 @Controller
 @RequestMapping("/admin")
@@ -28,6 +32,9 @@ public class AdminController {
 
 	@Autowired
 	ICustomerService customerService;
+	
+	@Autowired
+	ICategoryService categoryService;
 
 	@Autowired
 	ISellerService sellerService;
@@ -90,7 +97,7 @@ public class AdminController {
 
 		} catch (Exception e) {
 			map.addAttribute("mesg", "List Not Found");
-			mv.addObject("adminTask", true);
+			mv.addObject("errorinAdmin", true);
 		}
 		return mv;
 	}
@@ -110,7 +117,7 @@ public class AdminController {
 			}
 		} catch (Exception e) {
 			map.addAttribute("mesg", "List Not Found");
-			mv.addObject("adminTask", true);
+			mv.addObject("errorinAdmin", true);
 		}
 		return mv;
 	}
@@ -130,11 +137,90 @@ public class AdminController {
 			}
 			return "redirect:/seller/error";
 		} catch (Exception e) {
-			map.addAttribute("mesg", "Seller Not Found");
-			return "redirect:/seller/error";
+			map.addAttribute("msg", "Seller Not Found");
+			return "redirect:/admin/task";
 		}
 	}
+	
+	@GetMapping("/addcategory")
+	public ModelAndView addCategory( Model map) {
+		ModelAndView mv = new ModelAndView("/home/index");
 
+		System.out.println("in ad cat form");
+		mv.addObject("addCategory", true);
+		
+		return mv;
+
+	}
+	
+	@PostMapping("/addcategory")
+	public ModelAndView addCategory(@RequestParam String categoryName, Model map) {
+		ModelAndView mv = new ModelAndView("/home/index");
+		System.out.println("in add cat form");
+
+
+		if(categoryService.addCategory(categoryName))
+		{
+			map.addAttribute("msg", "added successfully");
+		}
+		else
+			map.addAttribute("msg", "failed to add");
+
+					
+		mv.addObject("addCategory", true);
+		
+		return mv;
+
+	}
+
+	@GetMapping("/removecategory")
+	public ModelAndView removeCategory( Model map) {
+		ModelAndView mv = new ModelAndView("/home/index");
+        
+		System.out.println("in remove cat form");
+				
+		try {
+
+			List<Category> list = categoryService.getCategoryList();
+			if (list.size() != 0) {
+				map.addAttribute("category_list1", list);
+				map.addAttribute("msg", "List Found");
+
+				System.out.println(list);
+
+				mv.addObject("removeCategory", true);
+
+			}
+		} catch (Exception e) {
+			map.addAttribute("msg", "List Not Found");
+			mv.addObject("errorinAdmin", true);
+		}
+		
+		return mv;
+
+	}
+	
+	@PostMapping("/removecategory")
+	public String removeCategory( @RequestParam int categoryId, Model map) {
+        
+		System.out.println("in postremove cat form");
+				
+		try {
+	
+			if(categoryService.deleteCategory(categoryId)) {
+				map.addAttribute("msg", "Category deleted successfully");
+			
+			}
+            return "redirect:/admin/removecategory";
+
+		} catch (Exception e) {
+			map.addAttribute("msg", "Category not deleted ");
+            return "redirect:/admin/task";
+		}
+		
+
+	}
+	
 	@GetMapping("/logout")
 	public String showLogout(HttpSession session) {
 		System.out.println("in logout page");

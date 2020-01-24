@@ -6,11 +6,11 @@
 				<div class="card card-signin my-5">
 					<div class="card-body">
 						<div>
-							<h3>Last Action Status : ${requestScope.mesg}</h3>
+							<h3>${requestScope.mesg}</h3>
+								<h3>Orders List</h3>
 
 							<table margin: auto;" border="1">
 
-								<caption>Placed Orders</caption>
 								<tr>
 									<td>Product Name</td>
 									<td>Weight</td>

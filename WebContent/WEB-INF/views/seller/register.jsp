@@ -42,7 +42,7 @@
 								<label for="password">Repeat Password</label>
 								<sf:input class="form-control" type="password" id="repeatpass"
 									placehonder="password" path="password" required="true" />
-								<sf:errors path="password" />
+								<sf:errors path="password" /><p id="msg"></p>
 							</div>
 							<div class="form-group">
 								<label for="phoneno">Phone Number</label>

@@ -154,17 +154,28 @@
 		<c:if test="${sellerLogin == true}">
 			<%@include file="../seller/login.jsp"%>
 		</c:if>
-
-		<c:if test="${SellercategoryList == true}">
+		<c:if test="${seller_details != null}">
+			<c:if test="${sellerAccount == true}">
+			<%@include file="../seller/account.jsp"%>
+		</c:if>
+			<c:if test="${SellercategoryList == true}">
 			<%@include file="../category/sellerCategoryList.jsp"%>
 		</c:if>
-
-		<c:if test="${sellerRegister == true}">
+			<c:if test="${sellerRegister == true}">
 			<%@include file="../seller/register.jsp"%>
-		</c:if>
+		</c:if></c:if>
 
 		<c:if test="${sellerList == true}">
 			<%@include file="../seller/list.jsp"%>
+		</c:if>
+
+
+		<c:if test="${ordersList == true}">
+			<%@include file="../seller/orderslist.jsp"%>
+		</c:if>
+
+		<c:if test="${productListforsSeller == true}">
+			<%@include file="../seller/productlist.jsp"%>
 		</c:if>
 
 		<c:if test="${sellertask == true}">
@@ -216,10 +227,6 @@
 			<%@include file="../customer/account.jsp"%>
 		</c:if>
 
-		<c:if test="${customertask == true}">
-			<%@include file="../customer/task.jsp"%>
-		</c:if>
-
 		<c:if test="${customerUpdate == true}">
 			<%@include file="../customer/update.jsp"%>
 		</c:if>
@@ -237,6 +244,10 @@
 		<c:if test="${addproduct == true}">
 			<%@include file="../product/addproduct.jsp"%>
 		</c:if>
+		
+		<c:if test="${updateProduct == true}">
+			<%@include file="../product/updateproduct.jsp"%>
+		</c:if>
 
 		<!--===================== Cart pages ===================== -->
 
@@ -252,6 +263,29 @@
 
 		<c:if test="${placedOrder == true}">
 			<%@include file="../orders/placedorders.jsp"%>
+		</c:if>
+		<!--===================== Admin pages ===================== -->
+
+		<c:if test="${adminLogin == true}">
+			<%@include file="../admin/login.jsp"%>
+		</c:if>
+		<c:if test="${adminTask == true}">
+			<%@include file="../admin/task.jsp"%>
+		</c:if>
+		<c:if test="${customerList == true}">
+			<%@include file="../admin/customerList.jsp"%>
+		</c:if>
+		<c:if test="${sellerList == true}">
+			<%@include file="../admin/sellerList.jsp"%>
+		</c:if>
+		<c:if test="${addCategory == true}">
+			<%@include file="../admin/addcategory.jsp"%>
+		</c:if>
+		<c:if test="${removeCategory == true}">
+			<%@include file="../admin/removecategory.jsp"%>
+		</c:if>
+		<c:if test="${errorinAdmin == true}">
+			<%@include file="../admin/error.jsp"%>
 		</c:if>
 
 

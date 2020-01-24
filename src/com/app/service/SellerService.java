@@ -53,4 +53,17 @@ public class SellerService implements ISellerService {
 		return sellerDao.authenticateSeller(email,password);
 	}
 
+	@Override
+	public Seller getSellerDetailsByProducts(Integer sellerId) {
+		// TODO Auto-generated method stub
+		return sellerDao.getSellerDetailsByProducts(sellerId);
+		
+	}
+
+	@Override
+	public Seller getSellerDetailsByOrders(Integer sellerId) {
+		// TODO Auto-generated method stub
+		return sellerDao.getSellerDetailsByOrders(sellerId);
+	}
+
 }

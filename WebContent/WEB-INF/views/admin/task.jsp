@@ -17,10 +17,10 @@
 						<a href="${SITE_URL}/admin/sellerList">Seller list</a>
 					</h4>
 					<h4>
-						<a href="<spring:url value='${SITE_URL}/admin/addCategory'/>">Add	Category</a>
+						<a href="<spring:url value='addcategory'/>">Add	Category</a>
 					</h4>
 					<h4>
-						<a href="<spring:url value='${SITE_URL}/product/removeCategory'/>">remove Category</a>
+						<a href="<spring:url value='removecategory'/>">remove Category</a>
 					</h4>
 					<h4>
 						<a href="<spring:url value='${SITE_URL}/admin/summary'/>">show summary</a>

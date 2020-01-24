@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.FlashMap;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -95,20 +96,6 @@ public class CustomersController {
 		mv.addObject("customerAccount",true);
 		return mv;
 	}
-	
-	@GetMapping("/list")
-	public String getAllCustomer(Model map) {
-		System.out.println("inside getAllCustomer");
-		List<Customer> list = customerService.getCustomerList();
-		if (list.size() != 0) {
-			map.addAttribute("customer_list", list);
-
-			return "/customer/list";
-		} else {
-			map.addAttribute("mesg", "List Not Found");
-			return "/customer/task";
-		}
-	}
 
 	@GetMapping("/register")
 	public ModelAndView showRegForm(Model map) {
@@ -155,12 +142,12 @@ public class CustomersController {
 		try {
 			if (customerService.updateCustomer(customerId, customer)) {
 				map.addAttribute("mesg", "Customer updated successfully");
-				return "/customer/list";
+				return "redirect:/customer/account";
 			}
 
 		} catch (Exception e) {
 			map.addAttribute("mesg", "Customer NOT Updated ");
-			return "/customer/list";
+			return "redirect:/customer/error";
 		}
 		return "/customer/list";
 
@@ -188,12 +175,5 @@ public class CustomersController {
 		return "redirect:/customer/login";
 	}
 
-	@GetMapping("/task")
-	public ModelAndView showtask() {
-		ModelAndView mv=new ModelAndView("/home/index");
-		System.out.println("in show task");
-		mv.addObject("customerTask",true);
-		return mv;
-	}
 
 }

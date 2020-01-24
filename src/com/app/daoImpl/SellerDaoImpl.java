@@ -26,12 +26,12 @@ public class SellerDaoImpl implements ISellerDao {
 	@Override
 	public Seller getDetails(int id) {
 		Seller seller;
-		
+
 		String query = "select s from Seller s join fetch s.products where s.sellerId=:id";
-		//String query = "select s from seller s where s.sellerId=:id";
+		// String query = "select s from seller s where s.sellerId=:id";
 		try {
-			seller = sf.getCurrentSession().createQuery(query,Seller.class).setParameter("id", id).getSingleResult();
-			
+			seller = sf.getCurrentSession().createQuery(query, Seller.class).setParameter("id", id).getSingleResult();
+
 		} catch (Exception e) {
 			throw e;
 		}
@@ -89,6 +89,36 @@ public class SellerDaoImpl implements ISellerDao {
 			seller = sf.getCurrentSession()
 					.createQuery("select s from Seller s where s.email=:email and s.password=:password", Seller.class)
 					.setParameter("email", email).setParameter("password", password).getSingleResult();
+		} catch (Exception e) {
+			throw e;
+		}
+		return seller;
+	}
+
+	@Override
+	public Seller getSellerDetailsByProducts(Integer sellerId) {
+		// TODO Auto-generated method stub
+		Seller seller;
+		String query = "select s from Seller s join fetch s.products where s.sellerId=:id";
+		try {
+			seller = sf.getCurrentSession().createQuery(query, Seller.class).setParameter("id", sellerId).getSingleResult();
+
+		} catch (Exception e) {
+			throw e;
+		}
+		return seller;
+	}
+
+	@Override
+	public Seller getSellerDetailsByOrders(Integer sellerId) {
+		// TODO Auto-generated method stub
+		Seller seller;
+
+		String query = "select s from Seller s join fetch s.orders where s.sellerId=:id";
+		// String query = "select s from seller s where s.sellerId=:id";
+		try {
+			seller = sf.getCurrentSession().createQuery(query, Seller.class).setParameter("id", sellerId).getSingleResult();
+
 		} catch (Exception e) {
 			throw e;
 		}

@@ -15,5 +15,9 @@ public interface ISellerService {
 		boolean updateSeller(int id,Seller c);
 		
 		boolean deleteSeller(int id);
+
+		Seller getSellerDetailsByProducts(Integer sellerId);
+
+		Seller getSellerDetailsByOrders(Integer sellerId);
 		
 }

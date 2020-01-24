@@ -11,18 +11,19 @@
 
 					<h4>choose operation</h4>
 					<h4>
-						<a href="list">list</a>
+						<a href="<spring:url value='/seller/productlist'/>">Show
+							Products</a>
 					</h4>
 					<h4>
 						<a href="<spring:url value='/product/addproduct'/>">Add
 							Product</a>
 					</h4>
 					<h4>
-						<a href="<spring:url value='/product/addproduct'/>">remove
-							products</a>
+						<a href="<spring:url value='/seller/orderlist'/>">Show
+							Orders</a>
 					</h4>
 					<h4>
-						<a href="<spring:url value='/seller/account'/>">show summary</a>
+						<a href="<spring:url value='/seller/account'/>">User Profile</a>
 					</h4>
 				</div>
 			</div>

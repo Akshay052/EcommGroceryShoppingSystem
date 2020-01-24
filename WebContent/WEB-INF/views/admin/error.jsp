@@ -8,7 +8,7 @@
 			<img src="${images}/error.png" height="300" weight="400" />
 
 			<button class="btn btn-lg btn-block text-uppercase">
-				<a href="<spring:url value='/customer/categories'/>">Retry</a>
+				<a href="<spring:url value='${SITE_URL}/admin/task'/>">Retry</a>
 			</button>
 
 

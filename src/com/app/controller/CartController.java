@@ -36,6 +36,7 @@ public class CartController {
 	public ModelAndView getCart(HttpSession session, Model map) {
 		// session is the person who is currently logged in
 		Customer customer = (Customer) session.getAttribute("customer_details");
+		session.setAttribute("customer_details", customerService.getCustomerDetails(customer.getCustomerId()));
 		ModelAndView mv = new ModelAndView("/home/index");
 		System.out.println("customer:" + customer);
 		System.out.println("cart:" + customer.getCart());
@@ -49,6 +50,7 @@ public class CartController {
 	@GetMapping("/addtocart")
 	public String addToCart(@RequestParam int productId, HttpSession session) {
 		Customer customer = (Customer) session.getAttribute("customer_details");
+		System.out.println("Prod id"+productId);
 		cartService.addCartItem(productId, customer.getCart());
 		session.setAttribute("customer_details", customerService.getCustomerDetails(customer.getCustomerId()));
 		return "redirect:/customer/cart/showcart";

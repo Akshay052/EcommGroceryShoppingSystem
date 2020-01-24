@@ -49,26 +49,30 @@ public class CartService implements ICartService {
 	public boolean addCartItem(int productId, Cart cart) {
 		// TODO Auto-generated method stub
 		boolean status = false;
-		
+
 		try {
 			// fetch product by id
 			Product product = productDao.getProduct(productId);
-			for(CartItem cartItem: cart.getCartItems()) {
-				if(cartItem.getProduct().getId() == productId) {
-					this.updateCartItem(cartItem.getCartItemId() , 1, cart);	
-					return true;
+			if (product.getQuantity() >= 1) {
+				for (CartItem cartItem : cart.getCartItems()) {
+					if (cartItem.getProduct().getId() == productId) {
+						this.updateCartItem(cartItem.getCartItemId(), 1, cart);
+						return true;
+					}
 				}
+				// create new cart item
+				CartItem cartItem = new CartItem(1, product.getPrice());
+				// add product as cartItem
+				cartItem.setProduct(product);
+				cart.setAmount(cart.getAmount() + cartItem.getValue());
+				// add cart item to cart
+				cartItem.setCart(cart);
+				// persist cartItem
+				cartDao.addCartItem(cartItem);
+				cartDao.updateCart(cart);
+			} else {
+				status = false;
 			}
-			// create new cart item
-			CartItem cartItem = new CartItem(1, product.getPrice());
-			// add product as cartItem
-			cartItem.setProduct(product);
-			cart.setAmount(cart.getAmount() + cartItem.getValue());
-			// add cart item to cart
-			cartItem.setCart(cart);
-			// persist cartItem
-			cartDao.addCartItem(cartItem);
-			cartDao.updateCart(cart);
 		} catch (Exception e) {
 			throw e;
 		}
@@ -77,43 +81,46 @@ public class CartService implements ICartService {
 	}
 
 	@Override
-	public boolean updateCartItem(int cartItemId, int update ,Cart cart) {
+	public boolean updateCartItem(int cartItemId, int update, Cart cart) {
 		// TODO Auto-generated method stub
 		boolean status = false;
 		try {
 			CartItem cartItem = cartDao.getCartItemDetails(cartItemId);
-			int quantity = cartItem.getQuantity() + (update);
-			double amount = 0;
-			if(update==1) {
-				amount += cartItem.getProduct().getPrice();
-			}
-			else if(update==-1) {
-				amount -= cartItem.getProduct().getPrice();
-			}
-			
-			if (quantity != 0) {
-				
-				cartItem.setQuantity(quantity);
-				cartItem.setValue(cartItem.getProduct().getPrice() * quantity);
-				cartDao.updateCartItem(cartItem);
-				for(CartItem ct: cart.getCartItems()) {
-					amount += ct.getValue();
+			if (cartItem.getProduct().getQuantity() != 0) {
+				int quantity = cartItem.getQuantity() + (update);
+				double amount = 0;
+				if (update == 1) {
+					amount += cartItem.getProduct().getPrice();
+				} else if (update == -1) {
+					amount -= cartItem.getProduct().getPrice();
 				}
-				cart.setAmount(amount);
-				cartDao.updateCart(cart);
-				status = true;
-				
-			} 
+
+				if (quantity != 0) {
+
+					cartItem.setQuantity(quantity);
+					cartItem.setValue(cartItem.getProduct().getPrice() * quantity);
+					cartDao.updateCartItem(cartItem);
+					for (CartItem ct : cart.getCartItems()) {
+						amount += ct.getValue();
+					}
+					cart.setAmount(amount);
+					cartDao.updateCart(cart);
+					status = true;
+
+				} else {
+					cart.getCartItems().remove(cartItem);
+					cartDao.deleteCartItem(cartItemId);
+					for (CartItem ct : cart.getCartItems()) {
+						amount += ct.getValue();
+					}
+					cart.setAmount(amount);
+					cartDao.updateCart(cart);
+					status = true;
+
+				}
+			}
 			else {
-				cart.getCartItems().remove(cartItem);
-				cartDao.deleteCartItem(cartItemId);
-				for(CartItem ct: cart.getCartItems()) {
-					amount += ct.getValue();
-				}
-				cart.setAmount(amount);
-				cartDao.updateCart(cart);
-				status = true;
-				
+				status = false;
 			}
 
 		} catch (Exception e) {
@@ -135,14 +142,14 @@ public class CartService implements ICartService {
 	}
 
 	@Override
-	public boolean deleteCartItem(int cartItemId, Cart cart ) {
+	public boolean deleteCartItem(int cartItemId, Cart cart) {
 		// TODO Auto-generated method stub
 		boolean status = false;
 		try {
 			cart.getCartItems().remove(cartDao.getCartItemDetails(cartItemId));
 			cartDao.deleteCartItem(cartItemId);
 			status = true;
-			
+
 		} catch (Exception e) {
 			throw e;
 		}

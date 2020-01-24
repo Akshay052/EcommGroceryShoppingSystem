@@ -1,5 +1,7 @@
 package com.app.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,8 +20,9 @@ public class HomeController {
 	}
 	
 	@GetMapping("/login")
-	public ModelAndView showLoginPage() {
+	public ModelAndView showLoginPage(HttpSession session) {
 		ModelAndView mv=new ModelAndView("/home/index");
+		session.invalidate();
 		mv.addObject("clickLogin", true);
 		return mv;
 	}
