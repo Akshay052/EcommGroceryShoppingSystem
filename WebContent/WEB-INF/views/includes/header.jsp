@@ -15,13 +15,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Best Deals | Buy, Sell and Shop</title>
+<title>E-Grocers</title>
 
 <!-- Mobile Metas -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <!-- Site Metas -->
-<title>Freshshop - Ecommerce</title>
+<title>E-Grocers</title>
 <meta name="keywords" content="">
 <meta name="description" content="">
 <meta name="author" content="">

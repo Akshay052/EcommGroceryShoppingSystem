@@ -21,13 +21,9 @@
 								class="form-control" placeholder="Password" required>
 						</div>
 						<div class="form-group">
-							<a href="#" class="float-right">Forgot password?</a> <label
-								class="float-left custom-control custom-checkbox"> <input
-								type="checkbox" class="custom-control-input" checked="">
-							</label>
+							<button class="btn btn-lg btn-primary btn-block " type="submit">login</button>
 						</div>
-						<button class="btn btn-lg btn-primary btn-block " type="submit">login</button>
-
+						
 						<p class="text-center mt-4">
 							Don't have account? <a
 								href="<spring:url value='/customer/register'/>">Sign up</a>

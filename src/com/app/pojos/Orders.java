@@ -6,7 +6,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 
 @Entity
 public class Orders {
@@ -25,7 +24,6 @@ public class Orders {
 
 	private Customer customer;
 	private Seller seller;
-	private Payment payment;
 
 	// Constructors
 	public Orders() {
@@ -141,16 +139,6 @@ public class Orders {
 
 	public void setSeller(Seller seller) {
 		this.seller = seller;
-	}
-
-	@OneToOne()
-	@JoinColumn(name = "payment_id")
-	public Payment getPayment() {
-		return payment;
-	}
-
-	public void setPayment(Payment payment) {
-		this.payment = payment;
 	}
 
 	@Override

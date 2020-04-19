@@ -2,7 +2,6 @@ package com.app.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -43,42 +42,7 @@ public class ProductsController {
 		System.out.println("in products controller ctor");
 	}
 
-	@GetMapping("/listbyseller")
-	public ModelAndView retrieveProductsBySeller(@RequestParam int sellerId, Model map) {
-		System.out.println("inside getAllProductsby seller");
-		ModelAndView mv = new ModelAndView("/home/index");
-
-		List<Product> list = productService.retrieveProductsBySeller(sellerId);
-		if (list.size() != 0) {
-			map.addAttribute("product_list", list);
-			mv.addObject("productsBySeller", true);
-			return mv;
-		} else {
-			map.addAttribute("mesg", "List Not Found");
-			mv.addObject("errorinseller", true);
-			return mv;
-		}
-	}
-
-	@GetMapping("/listbycategory")
-	public ModelAndView retrieveProductsByCatagory(@RequestParam String categoryName, Model map) {
-		System.out.println("inside getAllProductsby Catagory");
-		ModelAndView mv = new ModelAndView("/home/index");
-
-		Category category = categoryService.getCategoryDetails(categoryName);
-		System.out.println(category);
-
-		if (category.getProducts().size() != 0) {
-			System.out.println("list added");
-			map.addAttribute("product_list", category.getProducts());
-			mv.addObject("productList", true);
-			return mv;
-		} else {
-			System.out.println("list not found");
-			map.addAttribute("mesg", "List Not Found");
-			return mv;
-		}
-	}
+	
 
 	@GetMapping("/addproduct")
 	public ModelAndView addProduct(Model map) {
@@ -151,11 +115,11 @@ public class ProductsController {
 	}
 
 	@PostMapping("/update")
-	public ModelAndView showUpdateForm(@RequestParam int productId) {
+	public ModelAndView showUpdateForm(@RequestParam int productId, Model map) {
 		ModelAndView mv = new ModelAndView("/home/index");
 		try {
 			Product product = productService.getProductDetails(productId);
-			mv.addObject("product", product);
+			map.addAttribute("product", product);
 			mv.addObject("updateProduct", true);
 
 		} catch (Exception e) {
@@ -165,10 +129,10 @@ public class ProductsController {
 	}
 
 	@PostMapping("/updateproduct")
-	public String updateProduct(@Valid Product product, BindingResult result, RedirectAttributes flashMap) {
-
+	public String updateProduct(@RequestParam int productId, @RequestParam int quantity, RedirectAttributes flashMap) {
 		try {
-			if (productService.updateProduct(product.getId(), product)) {
+			System.out.println("Product:0"+productId);
+			if (productService.updateProduct(productId, quantity)) {
 				flashMap.addAttribute("mesg", "product updated successfully");
 			}
 		} catch (Exception e) {
@@ -177,19 +141,39 @@ public class ProductsController {
 		}
 		return "redirect:/seller/productlist";
 	}
+	@GetMapping("/listbycategory")
+	public ModelAndView retrieveProductsByCatagory(@RequestParam String categoryName, Model map) {
+		System.out.println("inside getAllProductsby Catagory");
+		ModelAndView mv = new ModelAndView("/home/index");
+
+		Category category = categoryService.getCategoryDetails(categoryName);
+		System.out.println(category);
+
+		if (category.getProducts().size() != 0) {
+			System.out.println("list added");
+			map.addAttribute("product_list", category.getProducts());
+			mv.addObject("productList", true);
+			return mv;
+		} else {
+			System.out.println("list not found");
+			map.addAttribute("mesg", "List Not Found");
+			return mv;
+		}
+	}
 
 	@PostMapping("/delete")
-	public ModelAndView deleteProduct(@RequestParam int productId, Model map) {
-		ModelAndView mv = new ModelAndView("/home/index");
+	public String deleteProduct(@RequestParam int productId, RedirectAttributes flashMap) {
 
 		try {
 			if (productService.deleteProduct(productId)) {
-				map.addAttribute("mesg", "product deleted successfully");
+				flashMap.addAttribute("mesg", "product deleted successfully");
+				
 			}
 		} catch (Exception e) {
-			map.addAttribute("mesg", "product not deleted");
+			flashMap.addAttribute("mesg", "product not deleted");
+			return "redirect:/seller/error";
 		}
-		return mv;
+		return "redirect:/seller/productlist";
 	}
 
 	@PostMapping("/details")

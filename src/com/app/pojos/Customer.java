@@ -16,6 +16,9 @@ import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 public class Customer {
@@ -23,20 +26,27 @@ public class Customer {
 	// attributes of customer table
 	private Integer customerId;
 
+	@NotEmpty(message = "Please fill First Name")
 	private String firstName;
 
+	@NotEmpty(message = "Please fill Last Name")
 	private String lastName;
 
+	@Email(message = "Invalid email format")
 	private String email;
 
+	//@Pattern(regexp="((?=.*\\d)(?=.*[a-z])(?=.*[#@$*]).{5,10})")
 	private String password;
 
+	@NotEmpty(message = "Phone no is required")
+	@Length(min = 10,max=10,message = "Invalid phone no")
 	private String phoneNumber;
 
+	@NotEmpty(message = "Address is required")
 	private String billingAddress;
-
+	
+	@NotEmpty(message = "Address is required")
 	private String shippingAddress;
-
 	// mapping
 
 	private Cart cart;

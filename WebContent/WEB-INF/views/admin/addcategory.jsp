@@ -21,8 +21,8 @@
 								<td></td>
 								<td><input type="submit" value="Add" /></td>
 							</tr>
-							<td><a
-										href="<spring:url value='/admin/task'/>">back</a></td>
+							<td><button><a
+										href="<spring:url value='/admin/task'/>">back</a></button></td>
 									
 								</tr>
 						</table>

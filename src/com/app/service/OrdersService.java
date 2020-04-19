@@ -14,7 +14,6 @@ import com.app.pojos.Cart;
 import com.app.pojos.CartItem;
 import com.app.pojos.Customer;
 import com.app.pojos.Orders;
-import com.app.pojos.Payment;
 import com.app.pojos.Product;
 
 @Service
@@ -30,7 +29,7 @@ public class OrdersService implements IOrdersService {
 	IProductDao productDao;
 
 	@Override
-	public boolean addOrders(Customer customer, Payment payment) {
+	public boolean addOrders(Customer customer) {
 		// TODO Auto-generated method stub
 		boolean status = false;
 		try {
@@ -49,14 +48,12 @@ public class OrdersService implements IOrdersService {
 
 				order.setCustomer(customer);
 				order.setSeller(cartItem.getProduct().getSeller());
-				order.setPayment(payment);
 				System.out.println("Order:" + order);
 				orderDao.addOrder(order);
 				//remove product from inventory
 				Product product = cartItem.getProduct();
 				int quantity = product.getQuantity() - cartItem.getQuantity();
-				product.setQuantity(quantity);
-				productDao.updateProduct(product.getId(), product);
+				productDao.updateProduct(product.getId(), quantity);
 				
 				System.out.println("order placed:" + order);
 
@@ -77,24 +74,7 @@ public class OrdersService implements IOrdersService {
 		return status;
 	}
 
-	@Override
-	public Payment makePayment(Customer customer) throws Exception {
-		Payment payment;
-		try {
-
-			DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			Date dateobj = new Date();
-			String date = sdf.format(dateobj);
-			System.out.println(date);
-			payment = new Payment(customer.getCart().getAmount(), date);
-			orderDao.makePayment(payment);
-
-		} catch (Exception e) {
-			throw e;
-		}
-		return payment;
-	}
-
+	
 	@Override
 	public Orders getOrder(int orderId) {
 		// TODO Auto-generated method stub

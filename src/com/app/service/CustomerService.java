@@ -84,6 +84,7 @@ public class CustomerService implements ICustomerService {
 				cartDao.addCart(cart);
 				//fetch updated customer
 				customer =customerDao.getCustomerDetails(customer.getCustomerId());
+				System.out.println("authenticate service:"+customer+""+customer.getCart()+" "+customer.getOrders());
 			}
 		}
 		catch(Exception e) {

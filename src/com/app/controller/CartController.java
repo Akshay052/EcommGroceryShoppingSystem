@@ -39,6 +39,9 @@ public class CartController {
 		session.setAttribute("customer_details", customerService.getCustomerDetails(customer.getCustomerId()));
 		ModelAndView mv = new ModelAndView("/home/index");
 		System.out.println("customer:" + customer);
+		if(customer.getCart() == null) {
+			customer = customerService.authenticateCustomer(customer.getEmail(), customer.getPassword());
+		}
 		System.out.println("cart:" + customer.getCart());
 		System.out.println("cartItems:" + customer.getCart().getCartItems());
 		map.addAttribute("cart", customer.getCart());

@@ -36,7 +36,7 @@ public class AdminDaoImpl implements IAdminDao {
 	public List<Admin> getAdminList() {
 		// TODO Auto-generated method stub
 		List<Admin> admins;
-		String jpql = "select c from Customer c";
+		String jpql = "select a from Admin a";
 		
 		try {
 		admins= sf.getCurrentSession().createQuery(jpql, Admin.class).getResultList();

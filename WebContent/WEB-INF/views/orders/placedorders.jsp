@@ -33,7 +33,7 @@
 									</tr>
 								</c:forEach>
 								<tr>
-								<p>Orders are placed and will reach to you within 5 days.</p>
+								<p>Orders are placed and will reach to you soon.</p>
 								</tr>
 								
 								<tr>

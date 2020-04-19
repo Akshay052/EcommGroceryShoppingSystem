@@ -12,7 +12,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.app.pojos.Customer;
 import com.app.pojos.Orders;
-import com.app.pojos.Payment;
 import com.app.service.ICustomerService;
 import com.app.service.IOrdersService;
 
@@ -47,10 +46,6 @@ public class OrdersController {
 	public String makePayment(HttpSession session) {
 
 		try {
-			Customer customer = (Customer) session.getAttribute("customer_details");
-			Payment payment = ordersService.makePayment(customer);
-			System.out.println("payment:" + payment);
-			session.setAttribute("payment_details", payment);
 			return "redirect:/orders/placeorder";
 		} catch (Exception ex) {
 			System.out.println("exception:" + ex);
@@ -63,16 +58,12 @@ public class OrdersController {
 	public ModelAndView placeOrders(HttpSession session) {
 
 		ModelAndView mv = new ModelAndView("/home/index");
+		System.out.println("Order placed controller...");
 
 		try {
 			Customer customer = (Customer) session.getAttribute("customer_details");
 			System.out.println("Customer:" + customer);
-			Payment payment = (Payment) session.getAttribute("payment_details");
-			session.setAttribute("payment_details", null);
-			System.out.println("Payment:" + payment);
-			ordersService.addOrders(customer, payment);
-			System.out.println("Order placed controller...");
-
+			ordersService.addOrders(customer);
 			session.setAttribute("customer_details", customerService.getCustomerDetails(customer.getCustomerId()));
 			mv.addObject("placedOrder", true);
 		} catch (Exception e) {

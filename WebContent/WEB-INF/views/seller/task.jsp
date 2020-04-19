@@ -5,11 +5,12 @@
 			<div class="card card-signin my-5">
 				<div class="card-body">
 
-					<h4 style="color: red;">status:${requestScope.mesg}</h4>
-					<h4>Welcome:${sessionScope.seller_details}</h4>
+					<h4 style="color: red;">${requestScope.mesg}</h4>
+					<h4>Welcome:${sessionScope.seller_details.firstName}</h4>
 
 
 					<h4>choose operation</h4>
+					<hr />
 					<h4>
 						<a href="<spring:url value='/seller/productlist'/>">Show
 							Products</a>

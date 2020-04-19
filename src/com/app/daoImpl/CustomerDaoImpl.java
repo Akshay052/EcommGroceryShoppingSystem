@@ -27,7 +27,7 @@ public class CustomerDaoImpl implements ICustomerDao {
 	@Override
 	public List<Customer> getCustomerList() {
 		// method returns list of all customers
-		List<Customer> customers;
+		List<Customer> customers = null;
 		String jpql = "select c from Customer c";
 
 		try {
@@ -41,7 +41,7 @@ public class CustomerDaoImpl implements ICustomerDao {
 	@Override
 	public Customer getCustomerDetails(int id) {
 		// method returns customer details by id
-		Customer customer;
+		Customer customer = null;
 		try {
 			customer = sf.getCurrentSession().get(Customer.class, id);
 		} catch (Exception e) {
@@ -133,17 +133,21 @@ public class CustomerDaoImpl implements ICustomerDao {
 		return customer;
 	}
 
-
 	@Override
 	public Customer getCustomerOrders(Integer customerId) {
 		// TODO Auto-generated method stub
-		Customer customer;
+		Customer customer=null;
 		try {
 			String jpql = "select c from Customer c join fetch c.orders where c.customerId=:id";
 			customer = sf.getCurrentSession().createQuery(jpql, Customer.class).setParameter("id", customerId)
 					.getSingleResult();
-		} catch (Exception e) {
-			throw e;
+		} catch (NoResultException e) {
+			customer=sf.getCurrentSession().get(Customer.class, customerId);
+			customer.setOrders(null);
+			return customer;
+		}
+		catch(Exception ex) {
+			throw ex;
 		}
 		return customer;
 	}

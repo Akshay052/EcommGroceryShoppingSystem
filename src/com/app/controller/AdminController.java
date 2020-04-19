@@ -106,7 +106,7 @@ public class AdminController {
 	public ModelAndView getAllSeller(Model map) {
 		ModelAndView mv = new ModelAndView("/home/index");
 
-		System.out.println("inside getAllSeller");
+		System.out.println("inside getadminAllSeller");
 		try {
 
 			List<Seller> list = sellerService.getSellerList();
@@ -127,6 +127,7 @@ public class AdminController {
 
 		System.out.println("inside verify Seller");
 		try {
+			System.out.println(" before seller:" );
 
 			Seller seller = sellerService.getSellerDetails(sellerId);
 			System.out.println("seller:" + seller);
@@ -140,7 +141,9 @@ public class AdminController {
 			map.addAttribute("msg", "Seller Not Found");
 			return "redirect:/admin/task";
 		}
+
 	}
+
 	
 	@GetMapping("/addcategory")
 	public ModelAndView addCategory( Model map) {
@@ -221,12 +224,19 @@ public class AdminController {
 
 	}
 	
+	@GetMapping("/task")
+	public ModelAndView showTaskPage() {
+		ModelAndView mv = new ModelAndView("/home/index");
+		mv.addObject("adminTask", true);
+		return mv;
+	}
+	
 	@GetMapping("/logout")
 	public String showLogout(HttpSession session) {
 		System.out.println("in logout page");
 		session.invalidate();
 
-		return "redirect:/login";
+		return "redirect:/admin/login";
 	}
 
 }

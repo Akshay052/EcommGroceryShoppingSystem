@@ -20,18 +20,18 @@
 							</tr>
 							<tr>
 								<td>Product Name:</td>
-								<td><sf:input path="productName" /></td>
+								<td><sf:input path="productName"  required="true"/></td>
 								<td><sf:errors path="productName" /></td>
 							</tr>
 							<tr>
 								<td>Enter description:</td>
-								<td><sf:input path="description" /></td>
+								<td><sf:input path="description" required="true" /></td>
 								<td><sf:errors path="description" /></td>
 							</tr>
 
 							<tr>
 								<td>Enter Price:</td>
-								<td><sf:input path="price" /></td>
+								<td><sf:input path="price" required="true" /></td>
 								<td><sf:errors path="price" /></td>
 							</tr>
 							<tr>
@@ -41,7 +41,7 @@
 							</tr>
 							<tr>
 								<td>Enter Quantity:</td>
-								<td><sf:input path="quantity" /></td>
+								<td><sf:input path="quantity" required="true" /></td>
 								<td><sf:errors path="quantity" /></td>
 							</tr>
 
@@ -50,6 +50,8 @@
 								<td><input type="submit" value="Add" /></td>
 							</tr>
 						</table>
+						<button><a href="<spring:url value='/seller/task'/>">Back</a></button>
+							
 					</sf:form>
 				</div>
 			</div>

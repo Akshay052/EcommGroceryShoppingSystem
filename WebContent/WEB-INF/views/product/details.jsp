@@ -22,6 +22,7 @@
 					class="btn btn-block btn-primary">Add to Cart </a>
 			</figcaption>
 		</figure>
+		<button><a href="<spring:url value='/customer/categories'/>">Back</a></button>
 	</div>
 
 </div>

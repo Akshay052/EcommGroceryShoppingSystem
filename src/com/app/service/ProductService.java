@@ -29,6 +29,7 @@ public class ProductService implements IProductService {
 	public boolean addProduct(Product product, String categoryName, Seller seller) {
 		boolean status = false;
 		try {
+			System.out.println("/////"+product + categoryName + seller);
 			Category category = categoryDao.getCategoryDetails(categoryName);
 			product.setCategory(category);
 			product.setSeller(seller);
@@ -41,27 +42,15 @@ public class ProductService implements IProductService {
 	}
 
 	@Override
-	public boolean updateProduct(Integer productId, Product product) {
+	public boolean updateProduct(int productId, int quantity) {
 		// TODO Auto-generated method stub
-		return productDao.updateProduct(productId, product);
+		return productDao.updateProduct(productId, quantity);
 	}
 
 	@Override
 	public boolean deleteProduct(int id) {
 		//
 		return productDao.deleteProduct(id);
-	}
-
-	@Override
-	public List<Product> retrieveProductsBySeller(int sellerId) {
-		//
-		return productDao.retrieveProductsBySeller(sellerId);
-	}
-
-	@Override
-	public List<Product> retrieveProductsByCategory(int categoryId) {
-		//
-		return productDao.retrieveProductsByCategory(categoryId);
 	}
 
 	@Override

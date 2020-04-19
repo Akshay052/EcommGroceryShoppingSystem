@@ -15,7 +15,7 @@ public class HomeController {
 	@GetMapping("/index")
 	public ModelAndView showHomePage() {
 		ModelAndView mv=new ModelAndView("/home/index");
-		mv.addObject("clickLogin", true);
+		mv.addObject("clickHome", true);
 		return mv;
 	}
 	

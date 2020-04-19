@@ -11,7 +11,7 @@
 							<p class="lead">Please fill in your information below.</p>
 						</div>
 
-						<sf:form method="post" modelAttribute="seller"
+						<sf:form method="post"  modelAttribute="seller"
 							onsubmit="return validatepass()">
 							<h3>Basic Info</h3>
 							<div class="form-group">
@@ -40,9 +40,8 @@
 							</div>
 							<div class="form-group">
 								<label for="password">Repeat Password</label>
-								<sf:input class="form-control" type="password" id="repeatpass"
-									placehonder="password" path="password" required="true" />
-								<sf:errors path="password" /><p id="msg"></p>
+								<input class="form-control" type="password" id="repeatpass" required="true" /><p id="msg"></p>
+								
 							</div>
 							<div class="form-group">
 								<label for="phoneno">Phone Number</label>
@@ -65,7 +64,7 @@
 							</div>
 							<div class="form-group">
 								<label for="address">Address</label>
-								<sf:input class="form-control" id="address"
+								<sf:textarea class="form-control" id="address"
 									placehonder="Address" path="address" required="true" />
 								<sf:errors path="address" />
 							</div>

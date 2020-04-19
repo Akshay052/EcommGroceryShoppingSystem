@@ -35,9 +35,9 @@ public class SellerService implements ISellerService {
 	}
 
 	@Override
-	public boolean updateSeller(int id, Seller s) {
+	public boolean updateSeller(int sellerId, Seller seller) {
 		// TODO Auto-generated method stub
-		return sellerDao.updateSeller(id,s);
+		return sellerDao.updateSeller(sellerId,seller);
 	}
 
 	@Override
@@ -48,8 +48,7 @@ public class SellerService implements ISellerService {
 
 	@Override
 	public Seller authenticateSeller(String email, String password) {
-		// TODO Auto-generated method stub
-		
+		// authenticate the seller on email and password
 		return sellerDao.authenticateSeller(email,password);
 	}
 

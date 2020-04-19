@@ -1,63 +1,58 @@
 
-<header class="section-header">
-	<section class="header-main border-bottom">
-		<div class="container">
-			<div class="row align-items-center">
-				<div class="col-lg-2 col-4">
-					<a href="${SITE_URL}" class="brand-wrap"> <img class="logo"
-						src="${images}/logo.jpeg"><strong>Best Deals</strong>
-					</a>
-					<!-- brand-wrap.// -->
+
+<nav class="navbar navbar-expand-sm bg-light navbar-light">
+	<div class="col-lg-2 col-4">
+		<a href="${SITE_URL}" class="brand-wrap"> <img class="logo"
+			src="${images}/logo.jpg"><strong>E-Grocers</strong>
+		</a>
+		<!-- brand-wrap.// -->
+	</div>
+
+	<div class="col-lg-4 col-sm-6 col-12">
+		<div class="widgets-wrap float-md-right">
+			<c:if test="${sessionScope.customer_details != null}">
+				<div class="widget-header  mr-3">
+					<a href="<spring:url value='/customer/cart/showcart' />"
+						class="icon icon-sm rounded-circle border">Cart</a>
 				</div>
+				<div class="widget-header icontext">
+					<a href="<spring:url value='/customer/account'/>"
+						class="icon icon-sm rounded-circle border">User</a>
+					<div class="text">
+						<span class="text-muted">Welcome:
+							${sessionScope.customer_details.firstName}</span>
 
-				<div class="col-lg-4 col-sm-6 col-12">
-					<div class="widgets-wrap float-md-right">
-						<c:if test="${sessionScope.customer_details != null}">
-							<div class="widget-header  mr-3">
-								<a href="<spring:url value='/customer/cart/showcart' />"
-									class="icon icon-sm rounded-circle border">Cart</a>
-							</div>
-							<div class="widget-header icontext">
-								<a href="<spring:url value='/customer/account'/>"
-									class="icon icon-sm rounded-circle border">User</a>
-								<div class="text">
-									<span class="text-muted">Welcome:
-										${sessionScope.customer_details.firstName}</span>
-
-								</div>
-							</div>
-						</c:if>
-						<c:if test="${sessionScope.seller_details != null}">
-							<div class="widget-header icontext">
-								<a href="<spring:url value='/seller/account'/>"
-									class="icon icon-sm rounded-circle border">User</a>
-								<div class="text">
-									<span class="text-muted">Welcome:
-										${sessionScope.seller_details.firstName}</span>
-
-								</div>
-							</div>
-						</c:if>
-						<c:if
-							test="${sessionScope.customer_details == null and sessionScope.seller_details == null}">
-							<div>
-								<button class="btn btn-lg btn-block " type="submit">
-									<a href="<spring:url value='/home/login'/>"> Login</a>
-								</button>
-							</div>
-						</c:if>
 					</div>
-					<!-- widgets-wrap.// -->
 				</div>
-				<!-- col.// -->
-			</div>
-			<!-- row.// -->
+			</c:if>
+			<c:if test="${sessionScope.seller_details != null}">
+				<div class="widget-header icontext">
+					<a href="<spring:url value='/seller/account'/>"
+						class="icon icon-sm rounded-circle border">User</a>
+					<div class="text">
+						<span class="text-muted">Welcome:
+							${sessionScope.seller_details.firstName}</span>
+
+					</div>
+				</div>
+			</c:if>
+			<c:if
+				test="${sessionScope.customer_details == null and sessionScope.seller_details == null}">
+				<div>
+					<ul class="nav navbar-nav justify-content-right">
+						<li class="navbar-item">
+
+							<button class="btn btn-lg btn-block " type="submit">
+								<a href="<spring:url value='/home/login'/>"> Login/Register</a>
+							</button>
+						</li>
+					</ul>
+				</div>
+			</c:if>
 		</div>
-		<!-- container.// -->
-	</section>
-	<!-- header-main .// -->
-</header>
-<!-- section-header.// -->
+	</div>
+
+</nav>
 
 
 

@@ -28,7 +28,6 @@ public class SellerDaoImpl implements ISellerDao {
 		Seller seller;
 
 		String query = "select s from Seller s join fetch s.products where s.sellerId=:id";
-		// String query = "select s from seller s where s.sellerId=:id";
 		try {
 			seller = sf.getCurrentSession().createQuery(query, Seller.class).setParameter("id", id).getSingleResult();
 
@@ -39,10 +38,11 @@ public class SellerDaoImpl implements ISellerDao {
 	}
 
 	@Override
-	public boolean updateSeller(int id, Seller s) {
+	public boolean updateSeller(int id, Seller seller) {
 		boolean status = false;
 		try {
-			sf.getCurrentSession().update(s);
+			System.out.println("seller Update dao:" + seller);
+			sf.getCurrentSession().update(seller);
 			status = true;
 		} catch (Exception e) {
 			throw e;
@@ -83,7 +83,7 @@ public class SellerDaoImpl implements ISellerDao {
 
 	@Override
 	public Seller authenticateSeller(String email, String password) {
-		// TODO Auto-generated method stub
+		// fetch seller details by email and password
 		Seller seller;
 		try {
 			seller = sf.getCurrentSession()
@@ -101,7 +101,8 @@ public class SellerDaoImpl implements ISellerDao {
 		Seller seller;
 		String query = "select s from Seller s join fetch s.products where s.sellerId=:id";
 		try {
-			seller = sf.getCurrentSession().createQuery(query, Seller.class).setParameter("id", sellerId).getSingleResult();
+			seller = sf.getCurrentSession().createQuery(query, Seller.class).setParameter("id", sellerId)
+					.getSingleResult();
 
 		} catch (Exception e) {
 			throw e;
@@ -117,7 +118,8 @@ public class SellerDaoImpl implements ISellerDao {
 		String query = "select s from Seller s join fetch s.orders where s.sellerId=:id";
 		// String query = "select s from seller s where s.sellerId=:id";
 		try {
-			seller = sf.getCurrentSession().createQuery(query, Seller.class).setParameter("id", sellerId).getSingleResult();
+			seller = sf.getCurrentSession().createQuery(query, Seller.class).setParameter("id", sellerId)
+					.getSingleResult();
 
 		} catch (Exception e) {
 			throw e;

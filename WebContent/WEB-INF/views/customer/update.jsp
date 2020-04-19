@@ -39,9 +39,9 @@
 							</div>
 							<div class="form-group">
 								<label for="password">Repeat Password</label>
-								<sf:input class="form-control" type="password" id="repeatpass"
-									placehonder="password" path="password" required="true" /><p id="msg"></p>
-								<sf:errors path="password" />
+								<input class="form-control" type="password" id="repeatpass"
+									placehonder="password" required="true" /><p id="msg"></p>
+								
 							</div>
 							<div class="form-group">
 								<label for="phoneno">Phone Number</label>

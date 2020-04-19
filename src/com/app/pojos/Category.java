@@ -58,7 +58,7 @@ public class Category {
 		this.categoryName = categoryName;
 	}
 	//mappedBy = "e_d_id", cascade = CascadeType.ALL, orphanRemoval=true
-	@OneToMany(mappedBy="category")
+	@OneToMany(mappedBy="category", orphanRemoval = true )
 	@LazyCollection(LazyCollectionOption.FALSE)
 	public List<Product> getProducts() {
 		return products;

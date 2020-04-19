@@ -6,7 +6,7 @@
 				<div class="card-body">
 
 					<h4 style="color: red;">${requestScope.mesg}</h4>
-					<h4>Welcome:${sessionScope.admin_details}</h4>
+					<h4>Welcome:${sessionScope.admin_details.firstName}</h4>
 
 
 					<h4>choose operation</h4>
@@ -23,11 +23,10 @@
 						<a href="<spring:url value='removecategory'/>">remove Category</a>
 					</h4>
 					<h4>
-						<a href="<spring:url value='${SITE_URL}/admin/summary'/>">show summary</a>
+						<a href="<spring:url value='/admin/logout'/>">logout</a>
 					</h4>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
-custist,validateseller,deletecat,add cat,see order detls,

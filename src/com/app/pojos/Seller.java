@@ -8,9 +8,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.Pattern;
 
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
 
 
 @Entity
@@ -18,24 +22,26 @@ public class Seller {
 
 	private Integer sellerId;
 	
+	@NotEmpty(message = "Please fill First Name")
 	private String firstName;
 	
+	@NotEmpty(message = "Please fill Last Name")
 	private String lastName;
-	
+	@Email(message = "Invalid email format")
 	private String email;
-	
+	@Pattern(message = "Invalid password format", regexp="((?=.*\\d)(?=.*[a-z])(?=.*[#@$*]).{5,10})")
 	private String password;
-	
+	@NotEmpty(message = "Phone no is required")
+	@Length(min = 10,max=10,message = "Invalid phone no")
 	private String phoneNumber;
-	
+	@NotEmpty(message = "Address is required")
 	private String address;
 	
 	private String status;
-	
+	@NotEmpty(message = "Account no is required")
 	private String accountNumber;
-	
+	@NotEmpty(message = "IFSC code is required")
 	private String IFSC;
-
 	//Mapping
 	
 	private List<Product> products;
@@ -147,7 +153,6 @@ public class Seller {
 	}
 
 	@OneToMany(mappedBy = "seller")
-	@LazyCollection(LazyCollectionOption.FALSE)
 	public List<Product> getProducts() {
 		return products;
 	}

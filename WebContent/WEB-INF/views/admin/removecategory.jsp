@@ -19,7 +19,10 @@
 
 								</tr>
 							</c:forEach>
+					
 						</table>
+						<button><a href="<spring:url value='/admin/task'/>">back</a></button>
+									
 						</form>
 					</div>
 				</div>

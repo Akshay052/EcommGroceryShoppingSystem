@@ -8,10 +8,10 @@
 			<img src="${images}/error.png" height="300" weight="400" />
 
 			<button class="btn btn-lg btn-block text-uppercase">
-				<a href="<spring:url value='/home/login'/>">Retry</a>
+				<a href="<spring:url value='/seller/task'/>">Retry</a>
 			</button>
 
-
+			
 		</div>
 	</div>
 </div>

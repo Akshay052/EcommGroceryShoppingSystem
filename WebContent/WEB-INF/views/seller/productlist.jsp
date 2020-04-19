@@ -21,45 +21,53 @@
 						<div class="card-body">
 							<div>
 								<h3>${requestScope.mesg}</h3>
+								<c:if test="${product_list == null}">
+									<p>No Products added</p>
+								</c:if>
 
-								<table style="margin: auto;" border="1">
+								<c:if test="${product_list != null}">
 
-									<tr>
-										<td>Product Name</td>
-										<td>Weight</td>
-										<td>Quantity</td>
-										<td>Price</td>
+									<table style="margin: auto;" border="1">
 
-										<td></td>
-										<td></td>
-									</tr>
+										<tr>
+											<td>Product Name</td>
+											<td>Weight</td>
+											<td>Quantity</td>
+											<td>Price</td>
+
+											<td></td>
+											<td></td>
+										</tr>
 
 
 
-									<div class="row">
-										<c:forEach var="p" items="${product_list}">
-											<tr>
-												<td>${p.productName}</td>
-												<td>${p.weight}</td>
-												<td>${p.quantity}</td>
-												<td>${p.price}</td>
-												<td>
-													<form action="<spring:url value='/product/update'/>" method="post">
-														<input type="hidden" name="productId" value="${p.id}" />
-														<button type="submit" class="btn btn-block btn-primary">Update</button>
-													</form>
-												</td>
-												<td>
-													<form action="<spring:url value='/product/delete'/>"
-														method="post">
-														<input type="hidden" name="productId" value="${p.id}" />
-														<button type="submit" class="btn btn-block btn-danger">Delete</button>
-													</form>
-												</td>
-											</tr>
-										</c:forEach>
-									</div>
-								</table>
+										<div class="row">
+											<c:forEach var="p" items="${product_list}">
+												<tr>
+													<td>${p.productName}</td>
+													<td>${p.weight}</td>
+													<td>${p.quantity}</td>
+													<td>${p.price}</td>
+													<td>
+														<form action="<spring:url value='/product/update'/>"
+															method="post">
+															<input type="hidden" name="productId" value="${p.id}" />
+															<button type="submit" class="btn btn-block btn-primary">Update</button>
+														</form>
+													</td>
+													<td>
+														<form action="<spring:url value='/product/delete'/>"
+															method="post">
+															<input type="hidden" name="productId" value="${p.id}" />
+															<button type="submit" class="btn btn-block btn-danger">Delete</button>
+														</form>
+													</td>
+												</tr>
+											</c:forEach>
+										</div>
+									</table>
+								</c:if>
+								<button><a href="<spring:url value='/seller/task'/>">Back</a></button>
 							</div>
 						</div>
 					</div>

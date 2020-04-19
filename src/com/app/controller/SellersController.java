@@ -41,19 +41,22 @@ public class SellersController {
 	}
 
 	@GetMapping("/account")
-	public ModelAndView showProfile() {
+	public ModelAndView showProfile( HttpSession session) {
 		ModelAndView mv = new ModelAndView("/home/index");
 		System.out.println("in show login form");
+		Seller seller = (Seller) session.getAttribute("seller_details");
+		Seller sellerDetails = sellerService.getSellerDetails(seller.getSellerId());
+		session.setAttribute("seller_details", sellerDetails);
 		// return "/customer/login";
 		mv.addObject("sellerAccount", true);
 		return mv;
 	}
 	
+	//main login page for seller
 	@GetMapping("/login")
 	public ModelAndView showLoginForm() {
 		ModelAndView mv = new ModelAndView("/home/index");
 		System.out.println("in show login form");
-		// return "/customer/login";
 		mv.addObject("sellerLogin", true);
 		return mv;
 	}
@@ -61,7 +64,7 @@ public class SellersController {
 	// request handling method to process login form
 	@PostMapping("/login") // @RequestMapping + method=post
 	public ModelAndView processLoginForm(@RequestParam String email, @RequestParam String password, Model map,
-			RedirectAttributes flashMap, HttpSession hs) {
+			RedirectAttributes flashMap, HttpSession session) {
 		System.out.println("in process login form");
 		ModelAndView mv = new ModelAndView("/home/index");
 
@@ -70,11 +73,11 @@ public class SellersController {
 
 			Seller seller = sellerService.authenticateSeller(email, password);
 
-			// valid login
-			hs.setAttribute("seller_details", seller);// till logout
+			// if valid login
+			session.setAttribute("seller_details", seller); // till logout
 			System.out.println("seller info" + seller);
-			flashMap.addFlashAttribute("mesg", "Login Successful");// till next request
-			mv.addObject("sellertask", true);
+			flashMap.addFlashAttribute("mesg", "Login Successful"); // till next request
+			mv.addObject("sellerTask", true);
 			return mv;
 
 		} catch (RuntimeException e) {
@@ -82,8 +85,7 @@ public class SellersController {
 			System.out.println("err in seller controller " + e);
 			map.addAttribute("mesg", "Invalid email or password");
 			// invalid login
-			mv.addObject("errorinseller", true);
-
+			mv.addObject("sellerLogin", true);
 			return mv;
 
 		}
@@ -99,11 +101,11 @@ public class SellersController {
 		List<Product> productList = sellerDetails.getProducts();
 		if (productList.size() != 0) {
 			map.addAttribute("product_list", productList);
-			mv.addObject("productListforsSeller", true);
+			mv.addObject("productListSeller", true);
 			return mv;
 
 		} else {
-			map.addAttribute("mesg", "List Not Found");
+			map.addAttribute("msg", "List Not Found");
 			return mv;
 
 		}
@@ -163,12 +165,12 @@ public class SellersController {
 		if (result.hasErrors()) {
 			System.out.println("P.L errs " + result);
 			// in case of P.L errors --forward clnt to reg form
-			mv.addObject("errorinseller", true);
+			mv.addObject("error", true);
 			return mv;
 		}
 		seller.setStatus("not verified");
 		flashMap.addFlashAttribute("mesg", sellerService.addSeller(seller));
-		mv.addObject("sellertask", true);
+		mv.addObject("sellerLogin", true);
 		return mv;
 	}
 
@@ -183,10 +185,11 @@ public class SellersController {
 
 	@PostMapping("/updateseller")
 	public String updateSeller(@Valid Seller seller, BindingResult result, Model map,RedirectAttributes flashMap) {
-		System.out.println("in update Seller" +  " " + seller);
+		System.out.println("in update Seller" +  " " + seller+"id="+seller.getSellerId());
+        seller.setStatus("Not verified");
+
 		try {
 			if (sellerService.updateSeller(seller.getSellerId(), seller)) {
-
 				flashMap.addAttribute("mesg", "Seller updated successfully");
 
 			}
@@ -237,7 +240,7 @@ public class SellersController {
 	public ModelAndView showtask() {
 		ModelAndView mv = new ModelAndView("/home/index");
 		System.out.println("in show task");
-		mv.addObject("sellertask", true);
+		mv.addObject("sellerTask", true);
 		return mv;
 	}
 
